@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import SettingsIcon from "@material-ui/icons/Settings";
 import IconButton from "@material-ui/core/IconButton";
-import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
+import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+
+import {
+  setThemeLight,
+  setThemeDark,
+} from "../../../redux/actions/guestThemeActions";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -20,8 +27,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    // width: "70%",
-    height: "50%",
+    height: "55%",
   },
   settingsIcon: {
     fontSize: "40px",
@@ -29,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
     width: "100%",
-
   },
   formControl: {
     margin: theme.spacing(1),
@@ -37,9 +42,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TransitionsModal() {
+export default function SettingsModal() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+
+  const userTheme = useSelector((state) => state.guestThemeReducer);
+  const dispatch = useDispatch();
+  const [themeInput, setThemeInput] = useState('');
+
+  useEffect(() => {
+    console.log(userTheme);
+  }, [userTheme]);
+
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -49,6 +63,16 @@ export default function TransitionsModal() {
     setOpen(false);
   };
 
+  const handleDark = () => {
+    dispatch(setThemeDark());
+  };
+
+  const handleLight = () => {
+    dispatch(setThemeLight());
+  };
+  const handleChange = (event) => {
+    setThemeInput(event.target.value);
+  };
   return (
     <div>
       <IconButton
@@ -76,18 +100,15 @@ export default function TransitionsModal() {
             <h2 id="transition-modal-title">Settings</h2>
 
             <FormControl className={classes.formControl}>
+              <InputLabel id="select-theme-label">Theme</InputLabel>
               <Select
-                // value={age}
-                // onChange={handleChange}
-                displayEmpty
-                className={classes.selectEmpty}
-                inputProps={{ "aria-label": "Without label" }}
+                labelId="select-theme-label"
+                id="select-theme"
+                value={themeInput}
+                onChange={handleChange}
               >
-                <MenuItem value="" disabled>
-                  Theme
-                </MenuItem>
-                <MenuItem value={10}>Dark</MenuItem>
-                <MenuItem value={20}>Light</MenuItem>
+                <MenuItem onClick={handleDark}>Dark</MenuItem>
+                <MenuItem onClick={handleLight}>Light</MenuItem>
               </Select>
               <FormHelperText>Select your theme</FormHelperText>
             </FormControl>
