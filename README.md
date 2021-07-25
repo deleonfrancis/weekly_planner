@@ -1,2 +1,2 @@
 # weekly_planner
-A simple app to plan your week.
+A simple React App to plan your week.
