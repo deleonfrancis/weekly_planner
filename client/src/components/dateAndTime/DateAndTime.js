@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     
-    weatherDetail: {
+    dateAndTime: {
       flexGrow: 1,
       alignSelf: "flex-center",
       marginTop: "20px"
@@ -11,14 +11,15 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-
-function JumboWeather() {
+function DateAndTime() {
     const classes = useStyles();
+
     return (
-        <div className={classes.weatherDetail}>
-            this is where the current weather will go.
+        <div className={classes.dateAndTime}>
+            <div>this is where the date will go</div>
+            <div>this is where the time will go</div>
         </div>
     )
 }
 
-export default JumboWeather
+export default DateAndTime

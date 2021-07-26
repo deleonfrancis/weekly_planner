@@ -6,6 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import SettingsModal from "../modals/SettingsModal";
 import JumboWeather from "../weather/JumboWeather";
+import DateAndTime from "../../dateAndTime/DateAndTime";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     alignSelf: "flex-center",
+    // fontSize: "3.0vw",
   },
 }));
 
@@ -38,8 +41,11 @@ function Jumbotron() {
         <AppBar position="static" className={classes.jumbo} color="default">
           <Toolbar className={classes.toolbar}>
             <Typography className={classes.title} variant="h2" noWrap>
-              Weekly Planner
+              Weekly
+              <br />
+              Planner
             </Typography>
+            <DateAndTime />
             <JumboWeather />
             <SettingsModal />
           </Toolbar>
