@@ -8,7 +8,6 @@ import SettingsModal from "../modals/SettingsModal";
 import JumboWeather from "../weather/JumboWeather";
 import DateAndTime from "../../dateAndTime/DateAndTime";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -37,14 +36,15 @@ function Jumbotron() {
 
   return (
     <div className={classes.root}>
-      <Paper>
-        <AppBar position="static" className={classes.jumbo} color="default">
+      <Paper elevation={0}>
+        <AppBar
+          elevation={0}
+          position="static"
+          className={classes.jumbo}
+          color="default"
+        >
           <Toolbar className={classes.toolbar}>
-            <Typography className={classes.title} variant="h2" noWrap>
-              Weekly
-              <br />
-              Planner
-            </Typography>
+            <img width="500" src="/wp_Logo.png" alt="" />
             <DateAndTime />
             <JumboWeather />
             <SettingsModal />

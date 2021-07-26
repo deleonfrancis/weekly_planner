@@ -24,7 +24,7 @@ export default function SelectTheme() {
 
   const userTheme = useSelector((state) => state.guestThemeReducer);
   const dispatch = useDispatch();
-  
+
   const [themeInput, setThemeInput] = useState("");
 
   const handleDark = () => {
@@ -40,16 +40,17 @@ export default function SelectTheme() {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel id="select-theme-label">Theme</InputLabel>
+        <InputLabel id="select-theme-label">
+          Theme
+        </InputLabel>
         <Select
           labelId="select-theme-label"
           id="select-theme"
-          value={themeInput? themeInput: ""}
-          
+          value={themeInput ? themeInput : ""}
           onChange={handleChange}
         >
-          <MenuItem onClick={handleDark}>Dark</MenuItem>
-          <MenuItem onClick={handleLight}>Light</MenuItem>
+          <MenuItem value={"Dark"} onClick={handleDark}>Dark</MenuItem>
+          <MenuItem value={"Light"} onClick={handleLight}>Light</MenuItem>
         </Select>
         <FormHelperText>Select your theme</FormHelperText>
       </FormControl>
