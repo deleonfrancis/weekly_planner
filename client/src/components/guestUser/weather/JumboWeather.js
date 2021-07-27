@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import { getCurrentLocationWeather } from "../../../redux/actions/weatherActions";
-import { Grid, Paper, Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
 let selectedTheme = "";
 
@@ -15,11 +15,6 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     color: selectedTheme === "dark" ? "black" : "white",
-  },
-  test: {
-    // spacing: 8,
-    backgroundColor:
-      selectedTheme === "dark" ? theme.palette.black : theme.palette.white,
   },
 }));
 
@@ -56,7 +51,7 @@ function JumboWeather() {
               style={{marginRight:"25px"}}
               
             />
-            <div className={classes.test}>
+            <div>
               <Typography className={classes.text}>
                 {currentLocationWeather.current.temp_f}°
               </Typography>
