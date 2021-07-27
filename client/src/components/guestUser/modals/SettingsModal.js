@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -23,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   settingsIcon: {
     fontSize: "40px",
+    flexGrow: 1,
   },
 }));
 
@@ -32,7 +32,7 @@ export default function SettingsModal() {
   const userTheme = useSelector((state) => state.guestThemeReducer);
 
   useEffect(() => {
-    console.log(userTheme);
+    // console.log(userTheme);
   }, [userTheme]);
 
   const [open, setOpen] = useState(false);
@@ -46,7 +46,7 @@ export default function SettingsModal() {
   };
 
   return (
-    <div>
+    <div style={{marginLeft:"250px"}}>
       <IconButton
         aria-label="display more actions"
         edge="end"

@@ -29,7 +29,7 @@ export default function WeatherModal() {
   const userTheme = useSelector((state) => state.guestThemeReducer);
 
   useEffect(() => {
-    console.log(userTheme);
+    // console.log(userTheme);
   }, [userTheme]);
 
   const [open, setOpen] = useState(false);
@@ -44,7 +44,7 @@ export default function WeatherModal() {
 
   return (
     <div>
-      <div onClick={handleOpen} >
+      <div onClick={handleOpen}>
         <JumboWeather />
       </div>
 

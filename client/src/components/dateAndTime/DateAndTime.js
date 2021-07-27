@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   dateAndTime: {
     flexGrow: 1,
     alignSelf: "flex-center",
-    marginTop: "20px",
+    marginTop: "10px",
   },
   text: {
     align: "center",
