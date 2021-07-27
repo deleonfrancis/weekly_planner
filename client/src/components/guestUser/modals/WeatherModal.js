@@ -4,9 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import SettingsIcon from "@material-ui/icons/Settings";
-import IconButton from "@material-ui/core/IconButton";
-import SelectTheme from "../settings/SelectTheme";
+import JumboWeather from "../weather/JumboWeather";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -22,11 +20,10 @@ const useStyles = makeStyles((theme) => ({
   },
   settingsIcon: {
     fontSize: "40px",
-    flexGrow: 1,
   },
 }));
 
-export default function SettingsModal() {
+export default function WeatherModal() {
   const classes = useStyles();
 
   const userTheme = useSelector((state) => state.guestThemeReducer);
@@ -46,15 +43,11 @@ export default function SettingsModal() {
   };
 
   return (
-    <div style={{marginLeft:"250px"}}>
-      <IconButton
-        aria-label="display more actions"
-        edge="end"
-        color="inherit"
-        onClick={handleOpen}
-      >
-        <SettingsIcon className={classes.settingsIcon} />
-      </IconButton>
+    <div>
+      <div onClick={handleOpen}>
+        <JumboWeather />
+      </div>
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -69,8 +62,8 @@ export default function SettingsModal() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Settings</h2>
-            <SelectTheme />
+            <h2 id="transition-modal-title">Current Weather</h2>
+            <div>This is where all current weather data will go</div>
           </div>
         </Fade>
       </Modal>

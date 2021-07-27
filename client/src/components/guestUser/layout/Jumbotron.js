@@ -1,12 +1,11 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import SettingsModal from "../modals/SettingsModal";
-import JumboWeather from "../weather/JumboWeather";
 import DateAndTime from "../../dateAndTime/DateAndTime";
+import WeatherModal from "../modals/WeatherModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +45,7 @@ function Jumbotron() {
           <Toolbar className={classes.toolbar}>
             <img width="500" src="/wp_Logo.png" alt="" />
             <DateAndTime />
-            <JumboWeather />
+            <WeatherModal />
             <SettingsModal />
           </Toolbar>
         </AppBar>
