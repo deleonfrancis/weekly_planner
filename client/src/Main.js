@@ -8,7 +8,8 @@ import "./css/app.css";
 function Main() {
   const userTheme = useSelector((state) => state.guestThemeReducer);
   const userThemeString = userTheme.userTheme
-    const theme = createTheme({
+    
+  const theme = createTheme({
       palette: {
         type: `${ userThemeString }`,
       },
