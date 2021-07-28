@@ -18,6 +18,7 @@ import Location from "./Location";
 //   }));
 
 export default function DisplayWeatherSection() {
+  // eslint-disable-next-line
   const { searchedWeather, unitOfMeasure } = useSelector(
     (state) => state.weatherReducer
   );
