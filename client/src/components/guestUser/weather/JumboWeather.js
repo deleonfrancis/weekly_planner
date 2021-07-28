@@ -22,7 +22,7 @@ function JumboWeather() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const userTheme = useSelector((state) => state.guestThemeReducer);
-  const { currentLocationWeather } = useSelector(
+  const { currentLocationWeather, unitOfMeasure} = useSelector(
     (state) => state.weatherReducer
   );
 
@@ -31,7 +31,7 @@ function JumboWeather() {
     // eslint-disable-next-line
   }, []);
 
-  console.log(currentLocationWeather);
+  // console.log(currentLocationWeather);
 
   selectedTheme = `${userTheme.userTheme}`;
 
@@ -53,7 +53,7 @@ function JumboWeather() {
             />
             <div>
               <Typography className={classes.text}>
-                {currentLocationWeather.current.temp_f}°
+                {unitOfMeasure==="imperial" ? currentLocationWeather.current.temp_f : currentLocationWeather.current.temp_c}°
               </Typography>
               <Typography className={classes.text}>
                 {currentLocationWeather.location.name},{" "}

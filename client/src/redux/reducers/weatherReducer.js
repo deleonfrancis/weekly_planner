@@ -1,8 +1,14 @@
-import { GET_CURRENT_LOCATION_WEATHER, GET_WEATHER } from "../actions/types";
+import {
+  GET_CURRENT_LOCATION_WEATHER,
+  GET_WEATHER,
+  SET_IMPERIAL,
+  SET_METRIC,
+} from "../actions/types";
 
 const initialState = {
   currentLocationWeather: null,
-  currentWeather: null,
+  searchedWeather: null,
+  unitOfMeasure: "imperial",
 };
 // eslint-disable-next-line
 export default function (state = initialState, action) {
@@ -13,7 +19,20 @@ export default function (state = initialState, action) {
       return {
         ...state,
         currentLocationWeather: payload,
-        currentWeather: payload,
+        searchedWeather: payload,
+      };
+    case SET_IMPERIAL:
+        // console.log(payload);
+      return {
+        ...state,
+        unitOfMeasure: payload,
+        
+      };
+      case SET_METRIC:
+        // console.log(payload);
+      return {
+        ...state,
+        unitOfMeasure: payload,
       };
     case GET_WEATHER:
       return state.filter((alert) => alert.id !== payload);

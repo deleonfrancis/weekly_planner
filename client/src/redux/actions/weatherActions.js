@@ -2,7 +2,12 @@
 // import {getGeoWeather, showError} from "../../api/weatherApi/geoWeather"
 import { getWeather } from "../../api/weatherApi/getWeather";
 
-import { GET_CURRENT_LOCATION_WEATHER, GET_WEATHER } from "./types";
+import {
+  GET_CURRENT_LOCATION_WEATHER,
+  GET_WEATHER,
+  SET_IMPERIAL,
+  SET_METRIC,
+} from "./types";
 
 export const getCurrentLocationWeather = () => (dispatch) => {
   if (navigator.geolocation) {
@@ -13,16 +18,20 @@ export const getCurrentLocationWeather = () => (dispatch) => {
         dispatch({ type: GET_CURRENT_LOCATION_WEATHER, payload: { ...res } });
       });
     });
-    // navigator.geolocation.getCurrentPosition(getGeoWeather, showError);
   } else {
     console.log("geolocation error");
     //   $("#error-display")
     //     .text("Geolocation is not supported by this browser.")
     //     .addClass("mt-5");
   }
-  // console.log(`this is getCurrentLocationWeather: ${response}`);
 };
 
 export const getSearchedWeather = () => (dispatch) => {
   dispatch({ type: GET_WEATHER, payload: {} });
+};
+export const setToImperial = () => (dispatch) => {
+  dispatch({ type: SET_IMPERIAL, payload: "imperial" });
+};
+export const setToMetric = () => (dispatch) => {
+  dispatch({ type: SET_METRIC, payload: "metric" });
 };
