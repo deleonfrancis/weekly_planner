@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import { getCurrentLocationWeather } from "../../../redux/actions/weatherActions";
-import { Grid, Typography } from "@material-ui/core";
+import { Paper, Grid, Typography } from "@material-ui/core";
 
-let selectedTheme = "";
+// let selectedTheme = "";
 
 const useStyles = makeStyles((theme) => ({
   weatherDetail: {
@@ -14,26 +14,29 @@ const useStyles = makeStyles((theme) => ({
     // marginTop: "20px",
   },
   text: {
-    color: selectedTheme === "dark" ? "black" : "white",
+    // color: selectedTheme === "dark" ? "white" : "black",
+  },
+  paper: {
+    backgroundColor: "transparent"
   },
 }));
 
 function JumboWeather() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const userTheme = useSelector((state) => state.guestThemeReducer);
-  const { currentLocationWeather, unitOfMeasure} = useSelector(
+  const { userTheme } = useSelector((state) => state.guestThemeReducer);
+  const { currentLocationWeather, unitOfMeasure } = useSelector(
     (state) => state.weatherReducer
   );
 
   useEffect(() => {
     dispatch(getCurrentLocationWeather());
     // eslint-disable-next-line
-  }, []);
+  }, [userTheme]);
 
   // console.log(currentLocationWeather);
 
-  selectedTheme = `${userTheme.userTheme}`;
+  // selectedTheme = `${userTheme.userTheme}`;
 
   return (
     <div className={classes.weatherDetail}>
@@ -48,17 +51,21 @@ function JumboWeather() {
             <img
               src={currentLocationWeather.current.condition.icon}
               alt="weatherIcon"
-              style={{marginRight:"25px"}}
-              
+              style={{ padding: "0px 15px" }}
             />
             <div>
-              <Typography className={classes.text}>
-                {unitOfMeasure==="imperial" ? currentLocationWeather.current.temp_f : currentLocationWeather.current.temp_c}°
-              </Typography>
-              <Typography className={classes.text}>
-                {currentLocationWeather.location.name},{" "}
-                {currentLocationWeather.location.region}
-              </Typography>
+              <Paper elevation={0} className={classes.paper}>
+                <Typography className={classes.text}>
+                  {unitOfMeasure === "imperial"
+                    ? currentLocationWeather.current.temp_f
+                    : currentLocationWeather.current.temp_c}
+                  °
+                </Typography>
+                <Typography className={classes.text}>
+                  {currentLocationWeather.location.name},{" "}
+                  {currentLocationWeather.location.region}
+                </Typography>
+              </Paper>
             </div>
           </Grid>
         )}
