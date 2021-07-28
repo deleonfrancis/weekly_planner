@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import { getCurrentLocationWeather } from "../../../redux/actions/weatherActions";
-import { Grid, Paper, Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
 let selectedTheme = "";
 
@@ -16,18 +16,13 @@ const useStyles = makeStyles((theme) => ({
   text: {
     color: selectedTheme === "dark" ? "black" : "white",
   },
-  test: {
-    // spacing: 8,
-    backgroundColor:
-      selectedTheme === "dark" ? theme.palette.black : theme.palette.white,
-  },
 }));
 
 function JumboWeather() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const userTheme = useSelector((state) => state.guestThemeReducer);
-  const { currentLocationWeather } = useSelector(
+  const { currentLocationWeather, unitOfMeasure} = useSelector(
     (state) => state.weatherReducer
   );
 
@@ -36,7 +31,7 @@ function JumboWeather() {
     // eslint-disable-next-line
   }, []);
 
-  console.log(currentLocationWeather);
+  // console.log(currentLocationWeather);
 
   selectedTheme = `${userTheme.userTheme}`;
 
@@ -56,9 +51,9 @@ function JumboWeather() {
               style={{marginRight:"25px"}}
               
             />
-            <div className={classes.test}>
+            <div>
               <Typography className={classes.text}>
-                {currentLocationWeather.current.temp_f}°
+                {unitOfMeasure==="imperial" ? currentLocationWeather.current.temp_f : currentLocationWeather.current.temp_c}°
               </Typography>
               <Typography className={classes.text}>
                 {currentLocationWeather.location.name},{" "}
