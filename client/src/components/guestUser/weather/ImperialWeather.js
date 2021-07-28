@@ -9,13 +9,15 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     textAlign: "center",
+    fontSize:"20px",
+    margin:"0px"
     //   color: theme.palette.text.secondary,
   },
 }));
 
-export default  function ImperialWeather() {
+export default function ImperialWeather() {
   const { searchedWeather } = useSelector((state) => state.weatherReducer);
   const classes = useStyles();
 
@@ -48,34 +50,33 @@ export default  function ImperialWeather() {
           </Paper>
         </Grid>
       </Grid>
-
       <Grid item xs={12}>
         <Paper elevation={0} className={classes.paper}>
           <p>Feels Like: {searchedWeather.current.feelslike_f}°</p>
         </Paper>
       </Grid>
-      <Grid item xs={4}>
-        <Paper elevation={0} className={classes.paper}>
-          <p>Humidity: {searchedWeather.current.humidity}%</p>
-        </Paper>
-      </Grid>
-      <Grid item xs={4}>
-        <Paper elevation={0} className={classes.paper}>
-          <ul>
-            Wind
-            <li>{searchedWeather.current.wind_mph} mph</li>
-            <li>Direction: {searchedWeather.current.wind_dir}</li>
-            <li>Degree: {searchedWeather.current.wind_degree}°</li>
-          </ul>
-        </Paper>
-      </Grid>
-      <Grid item xs={4}>
-        <Paper elevation={0} className={classes.paper}>
-          <p>UV Index: {searchedWeather.current.uv}</p>
-        </Paper>
+      <Grid container>
+        <Grid item xs={4}>
+          <Paper elevation={0} className={classes.paper}>
+            <p style={{fontSize:"20px"}}>Humidity: {searchedWeather.current.humidity}%</p>
+          </Paper>
+        </Grid>
+        <Grid item xs={4}>
+          <Paper elevation={0} className={classes.paper}>
+            <ul style={{listStyleType: "none", padding:"0px"}}>
+              Wind
+              <li style={{fontSize:"15px"}}>{searchedWeather.current.wind_mph} mph</li>
+              <li style={{fontSize:"15px"}}>Direction: {searchedWeather.current.wind_dir}</li>
+              <li style={{fontSize:"15px"}}>Degree: {searchedWeather.current.wind_degree}°</li>
+            </ul>
+          </Paper>
+        </Grid>
+        <Grid item xs={4}>
+          <Paper elevation={0} className={classes.paper}>
+            <p>UV Index: {searchedWeather.current.uv}</p>
+          </Paper>
+        </Grid>
       </Grid>
     </div>
   );
 }
-
-
