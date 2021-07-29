@@ -32,13 +32,12 @@ function JumboWeather() {
   useEffect(() => {
     dispatch(getCurrentLocationWeather());
     // eslint-disable-next-line
-  }, [userTheme]);
+  }, [userTheme, unitOfMeasure ]);
 
   // console.log(currentLocationWeather);
 
   // selectedTheme = `${userTheme.userTheme}`;
-  
-  const jumboCurrentTemp = currentLocationWeather.current.temp_f
+
 
 
   return (
@@ -60,7 +59,7 @@ function JumboWeather() {
               <Paper elevation={0} className={classes.paper}>
                 <Typography className={classes.text}>
                   {unitOfMeasure === "imperial"
-                    ? Math.round(jumboCurrentTemp)
+                    ? currentLocationWeather.current.temp_f
                     : currentLocationWeather.current.temp_c}
                   °
                 </Typography>
