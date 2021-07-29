@@ -37,6 +37,9 @@ function JumboWeather() {
   // console.log(currentLocationWeather);
 
   // selectedTheme = `${userTheme.userTheme}`;
+  
+  const jumboCurrentTemp = currentLocationWeather.current.temp_f
+
 
   return (
     <div className={classes.weatherDetail}>
@@ -57,7 +60,7 @@ function JumboWeather() {
               <Paper elevation={0} className={classes.paper}>
                 <Typography className={classes.text}>
                   {unitOfMeasure === "imperial"
-                    ? currentLocationWeather.current.temp_f
+                    ? Math.round(jumboCurrentTemp)
                     : currentLocationWeather.current.temp_c}
                   °
                 </Typography>

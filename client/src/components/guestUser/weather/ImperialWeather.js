@@ -21,6 +21,11 @@ export default function ImperialWeather() {
   const { searchedWeather } = useSelector((state) => state.weatherReducer);
   const classes = useStyles();
 
+  const currentTemp = searchedWeather.current.temp_f
+  const highTemp = searchedWeather.forecast.forecastday[0].day.maxtemp_f
+  const lowTemp = searchedWeather.forecast.forecastday[0].day.mintemp_f
+  const feelsLike = searchedWeather.current.feelslike_f
+
   //   const classes = useStyles();
 
   useEffect(() => {
@@ -32,7 +37,7 @@ export default function ImperialWeather() {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper elevation={0} className={classes.paper}>
-            <h1>{searchedWeather.current.temp_f}°</h1>
+            <h1>{Math.round(currentTemp)}°</h1>
           </Paper>
         </Grid>
       </Grid>
@@ -40,19 +45,19 @@ export default function ImperialWeather() {
         <Grid item xs={6}>
           <Paper elevation={0} className={classes.paper}>
             <p>
-              High: {searchedWeather.forecast.forecastday[0].day.maxtemp_f}°
+              High: {Math.round(highTemp)}°
             </p>
           </Paper>
         </Grid>
         <Grid item xs={6}>
           <Paper elevation={0} className={classes.paper}>
-            <p>Low: {searchedWeather.forecast.forecastday[0].day.mintemp_f}°</p>
+            <p>Low: {Math.round(lowTemp)}°</p>
           </Paper>
         </Grid>
       </Grid>
       <Grid item xs={12}>
         <Paper elevation={0} className={classes.paper}>
-          <p>Feels Like: {searchedWeather.current.feelslike_f}°</p>
+          <p>Feels Like: {Math.round(feelsLike)}°</p>
         </Paper>
       </Grid>
       <Grid container>
