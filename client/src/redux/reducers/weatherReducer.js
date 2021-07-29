@@ -22,20 +22,22 @@ export default function (state = initialState, action) {
         searchedWeather: payload,
       };
     case SET_IMPERIAL:
-        // console.log(payload);
+      // console.log(payload);
       return {
         ...state,
         unitOfMeasure: payload,
-        
       };
-      case SET_METRIC:
-        // console.log(payload);
+    case SET_METRIC:
+      // console.log(payload);
       return {
         ...state,
         unitOfMeasure: payload,
       };
     case GET_WEATHER:
-      return state.filter((alert) => alert.id !== payload);
+      return {
+        ...state,
+        searchedWeather: payload,
+      };
     default:
       return state;
   }

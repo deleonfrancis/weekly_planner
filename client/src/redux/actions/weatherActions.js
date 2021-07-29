@@ -26,8 +26,10 @@ export const getCurrentLocationWeather = () => (dispatch) => {
   }
 };
 
-export const getSearchedWeather = () => (dispatch) => {
-  dispatch({ type: GET_WEATHER, payload: {} });
+export const getSearchedWeather = (searchInput) => (dispatch) => {
+  getWeather(searchInput).then((res)=> {
+    dispatch({ type: GET_WEATHER, payload: {...res} });
+  })
 };
 export const setToImperial = () => (dispatch) => {
   dispatch({ type: SET_IMPERIAL, payload: "imperial" });

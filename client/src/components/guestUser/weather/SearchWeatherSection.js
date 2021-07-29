@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import { Paper } from "@material-ui/core";
+import { Paper, Typography } from "@material-ui/core";
 import SearchWeatherInput from "./SearchWeatherInput";
+import NearMeSearchBtn from "./NearMeSearchBtn";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +18,8 @@ export default function SearchWeatherSection() {
   return (
     <div>
       <Paper>
+        <NearMeSearchBtn />
+        <Typography>or</Typography>
         <SearchWeatherInput />
       </Paper>
     </div>
