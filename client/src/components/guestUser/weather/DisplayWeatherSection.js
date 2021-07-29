@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import ImperialWeather from "./ImperialWeather";
 import Location from "./Location";
+import MetricWeather from "./MetricWeather";
 // import { makeStyles } from "@material-ui/core/styles";
 // import Paper from "@material-ui/core/Paper";
 // import Grid from "@material-ui/core/Grid";
@@ -31,7 +32,7 @@ export default function DisplayWeatherSection() {
   return (
     <div>
       <Location />
-      <ImperialWeather />
+      {unitOfMeasure === "imperial" ? <ImperialWeather /> : <MetricWeather />}
     </div>
   );
 }

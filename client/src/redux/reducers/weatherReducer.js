@@ -3,12 +3,19 @@ import {
   GET_WEATHER,
   SET_IMPERIAL,
   SET_METRIC,
+  PUT_IN_SEARCH_HISTORY,
+  REMOVE_FROM_SEARCH_HISTORY,
+  CLEAR_SEARCH_HISTORY,
+  SET_DEFAULT_WEATHER,
+  CLEAR_DEFAULT_WEATHER
 } from "../actions/types";
 
 const initialState = {
   currentLocationWeather: null,
   searchedWeather: null,
   unitOfMeasure: "imperial",
+  searchHistory: {},
+  defaultWeather: null,
 };
 // eslint-disable-next-line
 export default function (state = initialState, action) {
@@ -22,20 +29,22 @@ export default function (state = initialState, action) {
         searchedWeather: payload,
       };
     case SET_IMPERIAL:
-        // console.log(payload);
+      // console.log(payload);
       return {
         ...state,
         unitOfMeasure: payload,
-        
       };
-      case SET_METRIC:
-        // console.log(payload);
+    case SET_METRIC:
+      // console.log(payload);
       return {
         ...state,
         unitOfMeasure: payload,
       };
     case GET_WEATHER:
-      return state.filter((alert) => alert.id !== payload);
+      return {
+        ...state,
+        searchedWeather: payload,
+      };
     default:
       return state;
   }

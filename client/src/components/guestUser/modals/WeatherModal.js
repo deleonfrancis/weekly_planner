@@ -6,6 +6,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import JumboWeather from "../weather/JumboWeather";
 import WeatherModalPage from "../weather/WeatherModalPage";
+import { Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -62,10 +63,14 @@ export default function WeatherModal() {
         }}
       >
         <Fade in={open}>
-          <div className={classes.paper}>
-            <h2 id="transition-modal-title">Current Weather</h2>
-            <WeatherModalPage />
-          </div>
+          <Paper>
+            <div className={classes.paper}>
+              <h2 id="transition-modal-title">Current Weather</h2>
+              <div id="modal-description">
+                <WeatherModalPage />
+              </div>
+            </div>
+          </Paper>
         </Fade>
       </Modal>
     </div>
