@@ -21,10 +21,10 @@ export default function ImperialWeather() {
   const { searchedWeather } = useSelector((state) => state.weatherReducer);
   const classes = useStyles();
 
-  const currentTemp = searchedWeather.current.temp_f
-  const highTemp = searchedWeather.forecast.forecastday[0].day.maxtemp_f
-  const lowTemp = searchedWeather.forecast.forecastday[0].day.mintemp_f
-  const feelsLike = searchedWeather.current.feelslike_f
+  const currentTemp = searchedWeather?.current?.temp_f
+  const highTemp = searchedWeather?.forecast?.forecastday[0]?.day?.maxtemp_f
+  const lowTemp = searchedWeather?.forecast?.forecastday[0]?.day?.mintemp_f
+  const feelsLike = searchedWeather?.current?.feelslike_f
 
   //   const classes = useStyles();
 
@@ -63,22 +63,22 @@ export default function ImperialWeather() {
       <Grid container>
         <Grid item xs={4}>
           <Paper elevation={0} className={classes.paper}>
-            <p style={{fontSize:"20px"}}>Humidity: {searchedWeather.current.humidity}%</p>
+            <p style={{fontSize:"20px"}}>Humidity: {searchedWeather?.current?.humidity ?? ""}%</p>
           </Paper>
         </Grid>
         <Grid item xs={4}>
           <Paper elevation={0} className={classes.paper}>
             <ul style={{listStyleType: "none", padding:"0px"}}>
               Wind
-              <li style={{fontSize:"15px"}}>{searchedWeather.current.wind_mph} mph</li>
-              <li style={{fontSize:"15px"}}>Direction: {searchedWeather.current.wind_dir}</li>
-              <li style={{fontSize:"15px"}}>Degree: {searchedWeather.current.wind_degree}°</li>
+              <li style={{fontSize:"15px"}}>{searchedWeather?.current?.wind_mph ?? ""} mph</li>
+              <li style={{fontSize:"15px"}}>Direction: {searchedWeather?.current?.wind_dir ?? ""}</li>
+              <li style={{fontSize:"15px"}}>Degree: {searchedWeather?.current?.wind_degree ?? ""}°</li>
             </ul>
           </Paper>
         </Grid>
         <Grid item xs={4}>
           <Paper elevation={0} className={classes.paper}>
-            <p>UV Index: {searchedWeather.current.uv}</p>
+            <p>UV Index: {searchedWeather?.current?.uv}</p>
           </Paper>
         </Grid>
       </Grid>

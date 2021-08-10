@@ -21,18 +21,21 @@ export default function Location() {
 
   useEffect(() => {
     // eslint-disable-next-line
-    console.log(searchedWeather);
+    // console.log(searchedWeather);
   }, [searchedWeather]);
 
   return (
     <div>
-      {searchedWeather.location.country === "United States of America" ? (
+      {/* <h2 className={{ marginTop: "0px" }}>
+        {searchedWeather.location.name}, {searchedWeather.location.region}
+      </h2> */}
+      {searchedWeather?.location?.country === "United States of America" ? (
         <h2 className={{ marginTop: "0px" }}>
-          {searchedWeather.location.name}, {searchedWeather.location.region}
+          {searchedWeather?.location?.name}, {searchedWeather?.location?.region}
         </h2>
       ) : (
         <h2 className={{ marginTop: "0px" }}>
-          {searchedWeather.location.name}, {searchedWeather.location.country}
+          {searchedWeather?.location?.name}, {searchedWeather?.location?.country}
         </h2>
       )}
     </div>

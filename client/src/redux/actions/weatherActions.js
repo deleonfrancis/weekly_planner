@@ -40,18 +40,19 @@ export const setToMetric = () => (dispatch) => {
   dispatch({ type: SET_METRIC, payload: "metric" });
 };
 
-export const addToSearchHistory = () => (dispatch) => {
-  dispatch({ type: PUT_IN_SEARCH_HISTORY, payload: {} });
+export const addToSearchHistory = (userSearch) => (dispatch) => {
+  // console.log(userSearch)
+  dispatch({ type: PUT_IN_SEARCH_HISTORY, payload: userSearch });
 };
 export const removeFromSearchHistory = () => (dispatch) => {
   dispatch({ type: REMOVE_FROM_SEARCH_HISTORY, payload: {} });
 };
 export const clearSearchHistory = () => (dispatch) => {
-  dispatch({ type: CLEAR_SEARCH_HISTORY, payload: {} });
+  dispatch({ type: CLEAR_SEARCH_HISTORY });
 };
 export const setDefaultWeather = () => (dispatch) => {
   dispatch({ type: SET_DEFAULT_WEATHER, payload: {} });
 };
 export const clearDefaultWeather = () => (dispatch) => {
-  dispatch({ type: CLEAR_DEFAULT_WEATHER, payload: {} });
+  dispatch({ type: CLEAR_DEFAULT_WEATHER });
 };
