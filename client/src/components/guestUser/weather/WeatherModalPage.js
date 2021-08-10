@@ -24,7 +24,7 @@ export default function WeatherModalPage() {
 
   useEffect(() => {
     // eslint-disable-next-line
-    console.log(searchedWeather);
+    // console.log(searchedWeather);
   }, [searchedWeather]);
 
   return (

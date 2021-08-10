@@ -26,7 +26,7 @@ export default function DisplayWeatherSection() {
 
   useEffect(() => {
     // eslint-disable-next-line
-    console.log(searchedWeather);
+    // console.log(searchedWeather);
   }, [searchedWeather]);
 
   return (

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
+import { v4 as uuidv4 } from "uuid";
 import TextField from "@material-ui/core/TextField";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { Paper } from "@material-ui/core";
-import { getSearchedWeather } from "../../../redux/actions/weatherActions";
+import {
+  getSearchedWeather,
+  addToSearchHistory,
+} from "../../../redux/actions/weatherActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,17 +22,20 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchWeatherInput() {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   const [search, setSearch] = useState("");
 
   const handleChange = (value) => {
     setSearch(value);
   };
   const handleSelect = (value) => {
-    if (value === "") {
-      return null;
+    console.log(value)
+    if (!value) {
+      return;
     }
     setSearch(value);
-    dispatch(getSearchedWeather(search));
+    dispatch(getSearchedWeather(value));
+    dispatch(addToSearchHistory({ id: uuidv4(), searchInfo: value }));
   };
 
   const searchOptions = {
@@ -41,6 +48,7 @@ export default function SearchWeatherInput() {
       onChange={handleChange}
       onSelect={handleSelect}
       searchOptions={searchOptions}
+      
     >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <div>

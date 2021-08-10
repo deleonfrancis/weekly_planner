@@ -3,6 +3,7 @@ import React from "react";
 import { Paper, Typography } from "@material-ui/core";
 import SearchWeatherInput from "./SearchWeatherInput";
 import NearMeSearchBtn from "./NearMeSearchBtn";
+import SearchHistorySection from "./SearchHistorySection";
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -21,6 +22,7 @@ export default function SearchWeatherSection() {
         <NearMeSearchBtn />
         <Typography>or</Typography>
         <SearchWeatherInput />
+        <SearchHistorySection />
       </Paper>
     </div>
   );

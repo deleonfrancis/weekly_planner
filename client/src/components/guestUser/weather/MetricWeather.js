@@ -32,7 +32,7 @@ export default function MetricWeather() {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper elevation={0} className={classes.paper}>
-            <h1>{searchedWeather.current.temp_c}°</h1>
+            <h1>{searchedWeather?.current?.temp_c ?? ""}°</h1>
           </Paper>
         </Grid>
       </Grid>
@@ -40,40 +40,40 @@ export default function MetricWeather() {
         <Grid item xs={6}>
           <Paper elevation={0} className={classes.paper}>
             <p>
-              High: {searchedWeather.forecast.forecastday[0].day.maxtemp_c}°
+              High: {searchedWeather?.forecast?.forecastday[0]?.day?.maxtemp_c ?? ""}°
             </p>
           </Paper>
         </Grid>
         <Grid item xs={6}>
           <Paper elevation={0} className={classes.paper}>
-            <p>Low: {searchedWeather.forecast.forecastday[0].day.mintemp_c}°</p>
+            <p>Low: {searchedWeather?.forecast?.forecastday[0]?.day?.mintemp_c ?? ""}°</p>
           </Paper>
         </Grid>
       </Grid>
       <Grid item xs={12}>
         <Paper elevation={0} className={classes.paper}>
-          <p>Feels Like: {searchedWeather.current.feelslike_c}°</p>
+          <p>Feels Like: {searchedWeather?.current?.feelslike_c ?? ""}°</p>
         </Paper>
       </Grid>
       <Grid container>
         <Grid item xs={4}>
           <Paper elevation={0} className={classes.paper}>
-            <p style={{fontSize:"20px"}}>Humidity: {searchedWeather.current.humidity}%</p>
+            <p style={{fontSize:"20px"}}>Humidity: {searchedWeather?.current?.humidity ?? ""}%</p>
           </Paper>
         </Grid>
         <Grid item xs={4}>
           <Paper elevation={0} className={classes.paper}>
             <ul style={{listStyleType: "none", padding:"0px"}}>
               Wind
-              <li style={{fontSize:"15px"}}>{searchedWeather.current.wind_kph} kph</li>
-              <li style={{fontSize:"15px"}}>Direction: {searchedWeather.current.wind_dir}</li>
-              <li style={{fontSize:"15px"}}>Degree: {searchedWeather.current.wind_degree}°</li>
+              <li style={{fontSize:"15px"}}>{searchedWeather?.current?.wind_kph ?? ""} kph</li>
+              <li style={{fontSize:"15px"}}>Direction: {searchedWeather?.current?.wind_dir ?? ""}</li>
+              <li style={{fontSize:"15px"}}>Degree: {searchedWeather?.current?.wind_degree ?? ""}°</li>
             </ul>
           </Paper>
         </Grid>
         <Grid item xs={4}>
           <Paper elevation={0} className={classes.paper}>
-            <p>UV Index: {searchedWeather.current.uv}</p>
+            <p>UV Index: {searchedWeather?.current?.uv ?? ""}</p>
           </Paper>
         </Grid>
       </Grid>

@@ -7,7 +7,7 @@ import {
   REMOVE_FROM_SEARCH_HISTORY,
   CLEAR_SEARCH_HISTORY,
   SET_DEFAULT_WEATHER,
-  CLEAR_DEFAULT_WEATHER
+  CLEAR_DEFAULT_WEATHER,
 } from "../actions/types";
 
 const initialState = {
@@ -46,9 +46,10 @@ export default function (state = initialState, action) {
         searchedWeather: payload,
       };
     case PUT_IN_SEARCH_HISTORY:
+      console.log(payload);
       return {
         ...state,
-        searchHistory: payload,
+        searchHistory: [...state.searchHistory, action.payload],
       };
     case REMOVE_FROM_SEARCH_HISTORY:
       return {
@@ -58,7 +59,7 @@ export default function (state = initialState, action) {
     case CLEAR_SEARCH_HISTORY:
       return {
         ...state,
-        searchHistory: payload,
+        searchHistory: [],
       };
     case SET_DEFAULT_WEATHER:
       return {
