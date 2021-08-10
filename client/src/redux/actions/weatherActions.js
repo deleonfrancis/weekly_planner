@@ -53,5 +53,5 @@ export const setDefaultWeather = () => (dispatch) => {
   dispatch({ type: SET_DEFAULT_WEATHER, payload: {} });
 };
 export const clearDefaultWeather = () => (dispatch) => {
-  dispatch({ type: CLEAR_DEFAULT_WEATHER, payload: {} });
+  dispatch({ type: CLEAR_DEFAULT_WEATHER });
 };

@@ -14,7 +14,7 @@ const initialState = {
   currentLocationWeather: null,
   searchedWeather: null,
   unitOfMeasure: "imperial",
-  searchHistory: {},
+  searchHistory: [],
   defaultWeather: null,
 };
 // eslint-disable-next-line
@@ -44,6 +44,31 @@ export default function (state = initialState, action) {
       return {
         ...state,
         searchedWeather: payload,
+      };
+    case PUT_IN_SEARCH_HISTORY:
+      return {
+        ...state,
+        searchHistory: payload,
+      };
+    case REMOVE_FROM_SEARCH_HISTORY:
+      return {
+        ...state,
+        searchHistory: payload,
+      };
+    case CLEAR_SEARCH_HISTORY:
+      return {
+        ...state,
+        searchHistory: payload,
+      };
+    case SET_DEFAULT_WEATHER:
+      return {
+        ...state,
+        defaultWeather: payload,
+      };
+    case CLEAR_DEFAULT_WEATHER:
+      return {
+        ...state,
+        defaultWeather: null,
       };
     default:
       return state;
