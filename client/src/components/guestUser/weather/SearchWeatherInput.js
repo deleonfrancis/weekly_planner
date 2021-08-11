@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { v4 as uuidv4 } from "uuid";
 import TextField from "@material-ui/core/TextField";
 import PlacesAutocomplete from "react-places-autocomplete";
-import { easing, Paper } from "@material-ui/core";
+import {  Paper } from "@material-ui/core";
 import {
   getSearchedWeather,
   addToSearchHistory,

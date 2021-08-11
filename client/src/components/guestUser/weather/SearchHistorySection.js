@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -8,13 +8,18 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
 import HistoryIcon from "@material-ui/icons/History";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ClearIcon from "@material-ui/icons/Clear";
 // import ListSubheader from "@material-ui/core/ListSubheader";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import { getSearchedWeather, removeFromSearchHistory } from "../../../redux/actions/weatherActions";
+import {
+  getSearchedWeather,
+  removeFromSearchHistory,
+  clearSearchHistory,
+} from "../../../redux/actions/weatherActions";
 
 function SearchHistorySection() {
   const { searchHistory } = useSelector((state) => state.weatherReducer);
@@ -32,9 +37,18 @@ function SearchHistorySection() {
     nested: {
       paddingLeft: theme.spacing(4),
     },
+    clearSearch: {
+      paddingLeft: theme.spacing(4),
+      "&:hover": {
+        color: "red",
+      },
+    },
+    redIcon: {
+      color: "red",
+    },
+
     deleteIcon: {
       "&:hover": {
-        // backgroundColor: "transparent",
         color: "red",
       },
     },
@@ -56,7 +70,10 @@ function SearchHistorySection() {
     // console.log(value);
   };
   const handleDelete = (id) => {
-    dispatch(removeFromSearchHistory(id))
+    dispatch(removeFromSearchHistory(id));
+  };
+  const handleClearAll = () => {
+    dispatch(clearSearchHistory());
   };
 
   return (
@@ -81,6 +98,18 @@ function SearchHistorySection() {
           </ListItem>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
+              {searchHistory.length > 1 && (
+                <ListItem
+                  onClick={handleClearAll}
+                  button
+                  className={classes.clearSearch}
+                >
+                  <ListItemIcon>
+                    <ClearIcon className={classes.redIcon} />
+                  </ListItemIcon>
+                  <ListItemText primary="Clear Search History" />
+                </ListItem>
+              )}
               {searchHistory.map((search) => {
                 return (
                   <ListItem

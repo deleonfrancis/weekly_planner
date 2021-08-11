@@ -49,7 +49,7 @@ export default function (state = initialState, action) {
       // console.log(payload);
       return {
         ...state,
-        searchHistory: [...state.searchHistory, action.payload],
+        searchHistory: [action.payload, ...state.searchHistory],
       };
     case REMOVE_FROM_SEARCH_HISTORY:
       // console.log(action.payload);
