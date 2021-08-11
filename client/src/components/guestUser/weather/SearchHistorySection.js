@@ -14,7 +14,7 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import { getSearchedWeather } from "../../../redux/actions/weatherActions";
+import { getSearchedWeather, removeFromSearchHistory } from "../../../redux/actions/weatherActions";
 
 function SearchHistorySection() {
   const { searchHistory } = useSelector((state) => state.weatherReducer);
@@ -32,10 +32,16 @@ function SearchHistorySection() {
     nested: {
       paddingLeft: theme.spacing(4),
     },
+    deleteIcon: {
+      "&:hover": {
+        // backgroundColor: "transparent",
+        color: "red",
+      },
+    },
   }));
 
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
     setOpen(!open);
@@ -47,45 +53,59 @@ function SearchHistorySection() {
       return;
     }
     dispatch(getSearchedWeather(value));
+    // console.log(value);
+  };
+  const handleDelete = (id) => {
+    dispatch(removeFromSearchHistory(id))
   };
 
   return (
     <div>
-      {searchHistory.length > 1 && <List
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-        // subheader={
-        //   <ListSubheader component="div" id="nested-list-subheader">
-        //     Search History
-        //   </ListSubheader>
-        // }
-        className={classes.root}
-      >
-        <ListItem button onClick={handleClick}>
-          <ListItemIcon>
-            <HistoryIcon />
-          </ListItemIcon>
-          <ListItemText primary="View Search History" />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={!open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            {searchHistory.map((search) => {
-              return (
-                <ListItem button className={classes.nested}>
-                {/* <ListItem onClick={handleSelected(search.searchInfo)} button className={classes.nested}> */}
-                  <ListItemText primary={search.searchInfo} />
-                  <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              );
-            })}
-          </List>
-        </Collapse>
-      </List>}
+      {searchHistory.length > 1 && (
+        <List
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+          // subheader={
+          //   <ListSubheader component="div" id="nested-list-subheader">
+          //     Search History
+          //   </ListSubheader>
+          // }
+          className={classes.root}
+        >
+          <ListItem button onClick={handleClick}>
+            <ListItemIcon>
+              <HistoryIcon />
+            </ListItemIcon>
+            <ListItemText primary="View Search History" />
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              {searchHistory.map((search) => {
+                return (
+                  <ListItem
+                    onClick={() => handleSelected(search.searchInfo)}
+                    button
+                    className={classes.nested}
+                  >
+                    <ListItemText primary={search.searchInfo} />
+                    <ListItemSecondaryAction>
+                      <IconButton
+                        className={classes.deleteIcon}
+                        onClick={() => handleDelete(search.id)}
+                        edge="end"
+                        aria-label="delete"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                );
+              })}
+            </List>
+          </Collapse>
+        </List>
+      )}
     </div>
   );
 }

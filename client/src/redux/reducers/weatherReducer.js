@@ -46,15 +46,18 @@ export default function (state = initialState, action) {
         searchedWeather: payload,
       };
     case PUT_IN_SEARCH_HISTORY:
-      console.log(payload);
+      // console.log(payload);
       return {
         ...state,
         searchHistory: [...state.searchHistory, action.payload],
       };
     case REMOVE_FROM_SEARCH_HISTORY:
+      // console.log(action.payload);
       return {
         ...state,
-        searchHistory: payload,
+        searchHistory: state.searchHistory.filter(
+          (search) => search.id !== action.payload
+        ),
       };
     case CLEAR_SEARCH_HISTORY:
       return {

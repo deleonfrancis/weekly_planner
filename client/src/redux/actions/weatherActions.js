@@ -44,8 +44,8 @@ export const addToSearchHistory = (userSearch) => (dispatch) => {
   // console.log(userSearch)
   dispatch({ type: PUT_IN_SEARCH_HISTORY, payload: userSearch });
 };
-export const removeFromSearchHistory = () => (dispatch) => {
-  dispatch({ type: REMOVE_FROM_SEARCH_HISTORY, payload: {} });
+export const removeFromSearchHistory = (id) => (dispatch) => {
+  dispatch({ type: REMOVE_FROM_SEARCH_HISTORY, payload: id });
 };
 export const clearSearchHistory = () => (dispatch) => {
   dispatch({ type: CLEAR_SEARCH_HISTORY });

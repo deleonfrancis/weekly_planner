@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { v4 as uuidv4 } from "uuid";
 import TextField from "@material-ui/core/TextField";
@@ -21,6 +21,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchWeatherInput() {
   const classes = useStyles();
+  const searchHistory = useSelector((state) => state.weatherReducer);
+
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState("");
@@ -29,13 +31,16 @@ export default function SearchWeatherInput() {
     setSearch(value);
   };
   const handleSelect = (value) => {
-    console.log(value)
+    console.log(value);
     if (!value) {
       return;
     }
     setSearch(value);
     dispatch(getSearchedWeather(value));
     dispatch(addToSearchHistory({ id: uuidv4(), searchInfo: value }));
+    // if (searchHistory.includes(value)) {
+    //   return;
+    // } else dispatch(addToSearchHistory({ id: uuidv4(), searchInfo: value }));
   };
 
   const searchOptions = {
@@ -48,7 +53,6 @@ export default function SearchWeatherInput() {
       onChange={handleChange}
       onSelect={handleSelect}
       searchOptions={searchOptions}
-      
     >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <div>
