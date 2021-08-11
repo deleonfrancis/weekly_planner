@@ -20,7 +20,7 @@ function SearchHistorySection() {
   const { searchHistory } = useSelector((state) => state.weatherReducer);
   const dispatch = useDispatch();
   // useEffect(() => {
-  //   console.log(searchHistory);
+  //   // console.log(searchHistory);
   // }, [searchHistory]);
 
   const useStyles = makeStyles((theme) => ({
@@ -61,7 +61,7 @@ function SearchHistorySection() {
 
   return (
     <div>
-      {searchHistory.length > 1 && (
+      {searchHistory.length > 0 && (
         <List
           component="nav"
           aria-labelledby="nested-list-subheader"
