@@ -12,6 +12,7 @@ import {
   CLEAR_SEARCH_HISTORY,
   SET_DEFAULT_WEATHER,
   CLEAR_DEFAULT_WEATHER,
+  SET_DEFAULT_WEATHER_DATA,
 } from "./types";
 
 export const getCurrentLocationWeather = () => (dispatch) => {
@@ -41,7 +42,6 @@ export const setToMetric = () => (dispatch) => {
 };
 
 export const addToSearchHistory = (userSearch) => (dispatch) => {
-  // console.log(userSearch)
   dispatch({ type: PUT_IN_SEARCH_HISTORY, payload: userSearch });
 };
 export const removeFromSearchHistory = (id) => (dispatch) => {
@@ -52,6 +52,24 @@ export const clearSearchHistory = () => (dispatch) => {
 };
 export const setDefaultWeather = (stringValue) => (dispatch) => {
   dispatch({ type: SET_DEFAULT_WEATHER, payload: stringValue });
+};
+export const setDefaultWeatherData = (searchInput) => (dispatch) => {
+  getWeather(searchInput).then((res) => {
+    dispatch({ type: SET_DEFAULT_WEATHER_DATA, payload: { ...res } });
+  });
+};
+export const setDefaultWeatherToNearMe = () => (dispatch) => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lat = position.coords.latitude;
+      const long = position.coords.longitude;
+      getWeather(`${lat} ${long}`).then((res) => {
+        dispatch({ type: SET_DEFAULT_WEATHER_DATA, payload: { ...res } });
+      });
+    });
+  } else {
+    console.log("geolocation error");
+  }
 };
 export const clearDefaultWeather = () => (dispatch) => {
   dispatch({ type: CLEAR_DEFAULT_WEATHER });

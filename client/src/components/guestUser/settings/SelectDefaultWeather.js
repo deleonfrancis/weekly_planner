@@ -12,6 +12,7 @@ import { Paper } from "@material-ui/core";
 import {
   setDefaultWeather,
   getSearchedWeather,
+  setDefaultWeatherData
 } from "../../../redux/actions/weatherActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +44,7 @@ export default function SelectDefaultWeather() {
     }
     setSearch(value);
     dispatch(setDefaultWeather(value));
-    dispatch(getSearchedWeather(value));
+    dispatch(setDefaultWeatherData(value))
     setShowSpecifiedLocationInput(false);
   };
 
