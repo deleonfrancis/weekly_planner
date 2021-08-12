@@ -50,8 +50,8 @@ export const removeFromSearchHistory = (id) => (dispatch) => {
 export const clearSearchHistory = () => (dispatch) => {
   dispatch({ type: CLEAR_SEARCH_HISTORY });
 };
-export const setDefaultWeather = () => (dispatch) => {
-  dispatch({ type: SET_DEFAULT_WEATHER, payload: {} });
+export const setDefaultWeather = (stringValue) => (dispatch) => {
+  dispatch({ type: SET_DEFAULT_WEATHER, payload: stringValue });
 };
 export const clearDefaultWeather = () => (dispatch) => {
   dispatch({ type: CLEAR_DEFAULT_WEATHER });

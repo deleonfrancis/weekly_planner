@@ -37,7 +37,7 @@ export default function ImperialWeather() {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper elevation={0} className={classes.paper}>
-            <h1>{Math.round(currentTemp)}°</h1>
+            <h1>{Math.round(currentTemp)}°F</h1>
           </Paper>
         </Grid>
       </Grid>
@@ -45,19 +45,19 @@ export default function ImperialWeather() {
         <Grid item xs={6}>
           <Paper elevation={0} className={classes.paper}>
             <p>
-              High: {Math.round(highTemp)}°
+              High: {Math.round(highTemp)}°F
             </p>
           </Paper>
         </Grid>
         <Grid item xs={6}>
           <Paper elevation={0} className={classes.paper}>
-            <p>Low: {Math.round(lowTemp)}°</p>
+            <p>Low: {Math.round(lowTemp)}°F</p>
           </Paper>
         </Grid>
       </Grid>
       <Grid item xs={12}>
         <Paper elevation={0} className={classes.paper}>
-          <p>Feels Like: {Math.round(feelsLike)}°</p>
+          <p>Feels Like: {Math.round(feelsLike)}°F</p>
         </Paper>
       </Grid>
       <Grid container>

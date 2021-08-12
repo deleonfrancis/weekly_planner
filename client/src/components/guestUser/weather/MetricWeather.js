@@ -32,7 +32,7 @@ export default function MetricWeather() {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper elevation={0} className={classes.paper}>
-            <h1>{searchedWeather?.current?.temp_c ?? ""}°</h1>
+            <h1>{Math.round(searchedWeather?.current?.temp_c) ?? ""}°C</h1>
           </Paper>
         </Grid>
       </Grid>
@@ -40,19 +40,19 @@ export default function MetricWeather() {
         <Grid item xs={6}>
           <Paper elevation={0} className={classes.paper}>
             <p>
-              High: {searchedWeather?.forecast?.forecastday[0]?.day?.maxtemp_c ?? ""}°
+              High: {Math.round(searchedWeather?.forecast?.forecastday[0]?.day?.maxtemp_c) ?? ""}°C
             </p>
           </Paper>
         </Grid>
         <Grid item xs={6}>
           <Paper elevation={0} className={classes.paper}>
-            <p>Low: {searchedWeather?.forecast?.forecastday[0]?.day?.mintemp_c ?? ""}°</p>
+            <p>Low: {Math.round(searchedWeather?.forecast?.forecastday[0]?.day?.mintemp_c) ?? ""}°C</p>
           </Paper>
         </Grid>
       </Grid>
       <Grid item xs={12}>
         <Paper elevation={0} className={classes.paper}>
-          <p>Feels Like: {searchedWeather?.current?.feelslike_c ?? ""}°</p>
+          <p>Feels Like: {Math.round(searchedWeather?.current?.feelslike_c) ?? ""}°C</p>
         </Paper>
       </Grid>
       <Grid container>

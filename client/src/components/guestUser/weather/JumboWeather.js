@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
-import { getCurrentLocationWeather } from "../../../redux/actions/weatherActions";
+import {
+  getCurrentLocationWeather,
+  getSearchedWeather,
+} from "../../../redux/actions/weatherActions";
 import { Paper, Grid, Typography } from "@material-ui/core";
-
-// let selectedTheme = "";
 
 const useStyles = makeStyles((theme) => ({
   weatherDetail: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     // color: selectedTheme === "dark" ? "white" : "black",
   },
   paper: {
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
   },
 }));
 
@@ -25,53 +26,89 @@ function JumboWeather() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { userTheme } = useSelector((state) => state.guestThemeReducer);
-  const { currentLocationWeather, unitOfMeasure } = useSelector(
-    (state) => state.weatherReducer
-  );
+  const {
+    currentLocationWeather,
+    searchedWeather,
+    unitOfMeasure,
+    defaultWeather,
+  } = useSelector((state) => state.weatherReducer);
 
   useEffect(() => {
-    dispatch(getCurrentLocationWeather());
+    if (defaultWeather === "Near Me") {
+      dispatch(getCurrentLocationWeather());
+    } else {
+      dispatch(getSearchedWeather(defaultWeather));
+    }
     // eslint-disable-next-line
-  }, [userTheme, unitOfMeasure ]);
-
-  // console.log(currentLocationWeather);
-
-  // selectedTheme = `${userTheme.userTheme}`;
-
-
+  }, [userTheme, unitOfMeasure, defaultWeather]);
 
   return (
     <div className={classes.weatherDetail}>
-      <Link component="button" variant="body2" underline="none">
-        {currentLocationWeather && (
-          <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <img
-              src={currentLocationWeather.current.condition.icon}
-              alt="weatherIcon"
-              style={{ padding: "0px 15px" }}
-            />
-            <div>
-              <Paper elevation={0} className={classes.paper}>
-                <Typography className={classes.text}>
-                  {unitOfMeasure === "imperial"
-                    ? currentLocationWeather.current.temp_f
-                    : currentLocationWeather.current.temp_c}
-                  °
-                </Typography>
-                <Typography className={classes.text}>
-                  {currentLocationWeather.location.name},{" "}
-                  {currentLocationWeather.location.region}
-                </Typography>
-              </Paper>
-            </div>
-          </Grid>
-        )}
-      </Link>
+      {(currentLocationWeather || searchedWeather) && (
+        <Link component="button" variant="body2" underline="none">
+          {defaultWeather === "Near Me" ? (
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <img
+                src={currentLocationWeather?.current?.condition?.icon ?? ""}
+                alt="weatherIcon"
+                style={{ padding: "0px 15px" }}
+              />
+              <div>
+                <Paper elevation={0} className={classes.paper}>
+                  <Typography className={classes.text}>
+                    {unitOfMeasure === "imperial"
+                      ? `${Math.round(
+                          currentLocationWeather?.current?.temp_f ?? ""
+                        )}°F`
+                      : `${Math.round(
+                          currentLocationWeather?.current?.temp_c ?? ""
+                        )}°C`}
+                  </Typography>
+                  <Typography className={classes.text}>
+                    {currentLocationWeather?.location?.name ?? ""},{" "}
+                    {currentLocationWeather?.location?.region ?? ""}
+                  </Typography>
+                </Paper>
+              </div>
+            </Grid>
+          ) : (
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <img
+                src={searchedWeather?.current?.condition?.icon ?? ""}
+                alt="weatherIcon"
+                style={{ padding: "0px 15px" }}
+              />
+              <div>
+                <Paper elevation={0} className={classes.paper}>
+                  <Typography className={classes.text}>
+                    {unitOfMeasure === "imperial"
+                      ? `${Math.round(
+                          searchedWeather?.current?.temp_f ?? ""
+                        )}°F`
+                      : `${Math.round(
+                          searchedWeather?.current?.temp_c ?? ""
+                        )}°C`}
+                  </Typography>
+                  <Typography className={classes.text}>
+                    {searchedWeather?.location?.name ?? ""},{" "}
+                    {searchedWeather?.location?.region ?? ""}
+                  </Typography>
+                </Paper>
+              </div>
+            </Grid>
+          )}
+        </Link>
+      )}
     </div>
   );
 }

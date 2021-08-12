@@ -15,7 +15,7 @@ const initialState = {
   searchedWeather: null,
   unitOfMeasure: "imperial",
   searchHistory: [],
-  defaultWeather: null,
+  defaultWeather: "Near Me",
 };
 // eslint-disable-next-line
 export default function (state = initialState, action) {
@@ -65,6 +65,7 @@ export default function (state = initialState, action) {
         searchHistory: [],
       };
     case SET_DEFAULT_WEATHER:
+      // console.log(state.defaultWeather)
       return {
         ...state,
         defaultWeather: payload,

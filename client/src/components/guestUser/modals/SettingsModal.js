@@ -8,6 +8,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import IconButton from "@material-ui/core/IconButton";
 import SelectTheme from "../settings/SelectTheme";
 import SelectMeasurement from "../settings/SelectMeasurement";
+import SelectDefaultWeather from "../settings/SelectDefaultWeather";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -73,6 +74,7 @@ export default function SettingsModal() {
             <h2 id="transition-modal-title">Settings</h2>
             <SelectTheme />
             <SelectMeasurement />
+            <SelectDefaultWeather />
           </div>
         </Fade>
       </Modal>
