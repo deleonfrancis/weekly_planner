@@ -8,6 +8,7 @@ import {
   CLEAR_SEARCH_HISTORY,
   SET_DEFAULT_WEATHER,
   CLEAR_DEFAULT_WEATHER,
+  SET_DEFAULT_WEATHER_DATA
 } from "../actions/types";
 
 const initialState = {
@@ -15,7 +16,8 @@ const initialState = {
   searchedWeather: null,
   unitOfMeasure: "imperial",
   searchHistory: [],
-  defaultWeather: null,
+  defaultWeather: "Near Me",
+  defaultWeatherData: null,
 };
 // eslint-disable-next-line
 export default function (state = initialState, action) {
@@ -49,14 +51,14 @@ export default function (state = initialState, action) {
       // console.log(payload);
       return {
         ...state,
-        searchHistory: [action.payload, ...state.searchHistory],
+        searchHistory: [payload, ...state.searchHistory],
       };
     case REMOVE_FROM_SEARCH_HISTORY:
       // console.log(action.payload);
       return {
         ...state,
         searchHistory: state.searchHistory.filter(
-          (search) => search.id !== action.payload
+          (search) => search.id !== payload
         ),
       };
     case CLEAR_SEARCH_HISTORY:
@@ -65,9 +67,16 @@ export default function (state = initialState, action) {
         searchHistory: [],
       };
     case SET_DEFAULT_WEATHER:
+      // console.log(state.defaultWeather)
       return {
         ...state,
         defaultWeather: payload,
+      };
+    case SET_DEFAULT_WEATHER_DATA:
+      // console.log(state.defaultWeather)
+      return {
+        ...state,
+        defaultWeatherData: payload,
       };
     case CLEAR_DEFAULT_WEATHER:
       return {
