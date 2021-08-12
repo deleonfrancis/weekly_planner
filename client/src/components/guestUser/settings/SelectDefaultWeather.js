@@ -24,10 +24,12 @@ const useStyles = makeStyles((theme) => ({
 export default function SelectDefaultWeather() {
   const classes = useStyles();
 
-  const { defaultWeather } = useSelector((state) => state.weatherReducer);
+  const { defaultWeather } =
+    useSelector((state) => state.weatherReducer);
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState("");
+  const [userSelection, setUserSelection] = useState("");
   const [showSpecifiedLocationInput, setShowSpecifiedLocationInput] =
     useState(false);
 
@@ -45,8 +47,11 @@ export default function SelectDefaultWeather() {
     setShowSpecifiedLocationInput(false);
   };
 
-  const handleTextChange = (value) => {
-    setSearch(value);
+  const handleTextChange = (search) => {
+    setSearch(search);
+  };
+  const handleUserSelection = (event) => {
+    setUserSelection(event.target.value);
   };
   const searchOptions = {
     types: ["(regions)"],
@@ -61,9 +66,16 @@ export default function SelectDefaultWeather() {
         <Select
           labelId="select-default-weather-label"
           id="select-default-weather"
+          value={userSelection ? userSelection : ""}
+          onChange={handleUserSelection}
         >
-          <MenuItem onClick={handleDefaultCurrentLocation}>Near Me</MenuItem>
-          <MenuItem onClick={() => setShowSpecifiedLocationInput(true)}>
+          <MenuItem value="Near Me" onClick={handleDefaultCurrentLocation}>
+            Near Me
+          </MenuItem>
+          <MenuItem
+            value="Enter Location"
+            onClick={() => setShowSpecifiedLocationInput(true)}
+          >
             Enter Location
           </MenuItem>
         </Select>
@@ -82,7 +94,12 @@ export default function SelectDefaultWeather() {
             }) => (
               <div>
                 <Paper elevation={0}>
-                  <form style={{ margin: "15px 0px 5px" }} className={classes.root} noValidate autoComplete="off">
+                  <form
+                    style={{ margin: "15px 0px 5px" }}
+                    className={classes.root}
+                    noValidate
+                    autoComplete="off"
+                  >
                     <TextField
                       id="text-default-weather"
                       label="Enter City Or Zip Code"
