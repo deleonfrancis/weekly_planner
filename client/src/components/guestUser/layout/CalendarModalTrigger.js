@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import TodayIcon from "@material-ui/icons/Today";
 import { Grid } from "@material-ui/core";
-// import { Grid, Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Calendar() {
+function CalendarModalTrigger() {
   const classes = useStyles();
 
   return (
@@ -25,4 +24,4 @@ function Calendar() {
   );
 }
 
-export default Calendar;
+export default CalendarModalTrigger;
