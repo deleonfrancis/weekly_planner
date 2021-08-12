@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { v4 as uuidv4 } from "uuid";
 import TextField from "@material-ui/core/TextField";
 import PlacesAutocomplete from "react-places-autocomplete";
-import { Paper } from "@material-ui/core";
+import {  Paper } from "@material-ui/core";
 import {
   getSearchedWeather,
   addToSearchHistory,
@@ -21,6 +21,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchWeatherInput() {
   const classes = useStyles();
+  const { searchHistory } = useSelector((state) => state.weatherReducer);
+  const searchHistoryStringArray = searchHistory.map((string) => {
+    return (string = string.searchInfo);
+  });
+  useEffect(() => {
+    // searchHistoryStringArray();
+    // console.log(searchHistoryStringArray);
+    // eslint-disable-next-line
+  }, [searchHistory]);
+
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState("");
@@ -29,13 +39,21 @@ export default function SearchWeatherInput() {
     setSearch(value);
   };
   const handleSelect = (value) => {
-    console.log(value)
+    // console.log(typeof value);
     if (!value) {
       return;
     }
     setSearch(value);
     dispatch(getSearchedWeather(value));
-    dispatch(addToSearchHistory({ id: uuidv4(), searchInfo: value }));
+
+    const checkDuplicateEntry = () => {
+      if (!searchHistoryStringArray.includes(value)) {
+        return dispatch(
+          addToSearchHistory({ id: uuidv4(), searchInfo: value })
+        );
+      } else return;
+    };
+    checkDuplicateEntry();
   };
 
   const searchOptions = {
@@ -48,7 +66,6 @@ export default function SearchWeatherInput() {
       onChange={handleChange}
       onSelect={handleSelect}
       searchOptions={searchOptions}
-      
     >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <div>

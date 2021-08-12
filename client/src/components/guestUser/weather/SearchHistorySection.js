@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -8,19 +8,24 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
 import HistoryIcon from "@material-ui/icons/History";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ClearIcon from "@material-ui/icons/Clear";
 // import ListSubheader from "@material-ui/core/ListSubheader";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import { getSearchedWeather } from "../../../redux/actions/weatherActions";
+import {
+  getSearchedWeather,
+  removeFromSearchHistory,
+  clearSearchHistory,
+} from "../../../redux/actions/weatherActions";
 
 function SearchHistorySection() {
   const { searchHistory } = useSelector((state) => state.weatherReducer);
   const dispatch = useDispatch();
   // useEffect(() => {
-  //   console.log(searchHistory);
+  //   // console.log(searchHistory);
   // }, [searchHistory]);
 
   const useStyles = makeStyles((theme) => ({
@@ -32,10 +37,25 @@ function SearchHistorySection() {
     nested: {
       paddingLeft: theme.spacing(4),
     },
+    clearSearch: {
+      paddingLeft: theme.spacing(4),
+      "&:hover": {
+        color: "red",
+      },
+    },
+    redIcon: {
+      color: "red",
+    },
+
+    deleteIcon: {
+      "&:hover": {
+        color: "red",
+      },
+    },
   }));
 
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
     setOpen(!open);
@@ -47,45 +67,74 @@ function SearchHistorySection() {
       return;
     }
     dispatch(getSearchedWeather(value));
+    // console.log(value);
+  };
+  const handleDelete = (id) => {
+    dispatch(removeFromSearchHistory(id));
+  };
+  const handleClearAll = () => {
+    dispatch(clearSearchHistory());
   };
 
   return (
     <div>
-      {searchHistory.length > 1 && <List
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-        // subheader={
-        //   <ListSubheader component="div" id="nested-list-subheader">
-        //     Search History
-        //   </ListSubheader>
-        // }
-        className={classes.root}
-      >
-        <ListItem button onClick={handleClick}>
-          <ListItemIcon>
-            <HistoryIcon />
-          </ListItemIcon>
-          <ListItemText primary="View Search History" />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={!open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            {searchHistory.map((search) => {
-              return (
-                <ListItem button className={classes.nested}>
-                {/* <ListItem onClick={handleSelected(search.searchInfo)} button className={classes.nested}> */}
-                  <ListItemText primary={search.searchInfo} />
-                  <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
+      {searchHistory.length > 0 && (
+        <List
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+          // subheader={
+          //   <ListSubheader component="div" id="nested-list-subheader">
+          //     Search History
+          //   </ListSubheader>
+          // }
+          className={classes.root}
+        >
+          <ListItem button onClick={handleClick}>
+            <ListItemIcon>
+              <HistoryIcon />
+            </ListItemIcon>
+            <ListItemText primary="View Search History" />
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              {searchHistory.length > 1 && (
+                <ListItem
+                  onClick={handleClearAll}
+                  button
+                  className={classes.clearSearch}
+                >
+                  <ListItemIcon>
+                    <ClearIcon className={classes.redIcon} />
+                  </ListItemIcon>
+                  <ListItemText primary="Clear Search History" />
                 </ListItem>
-              );
-            })}
-          </List>
-        </Collapse>
-      </List>}
+              )}
+              {searchHistory.map((search) => {
+                return (
+                  <ListItem
+                    onClick={() => handleSelected(search.searchInfo)}
+                    button
+                    className={classes.nested}
+                  >
+                    <ListItemText primary={search.searchInfo} />
+                    <ListItemSecondaryAction>
+                      <IconButton
+                        className={classes.deleteIcon}
+                        onClick={() => handleDelete(search.id)}
+                        edge="end"
+                        aria-label="delete"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                );
+              })}
+            </List>
+          </Collapse>
+        </List>
+      )}
     </div>
   );
 }
