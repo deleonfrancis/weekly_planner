@@ -54,7 +54,7 @@ function JumboWeather() {
               alignItems="center"
             >
               <img
-                src={defaultWeatherData?.current?.condition?.icon ?? ""}
+                src={defaultWeatherData.current.condition.icon}
                 alt="weatherIcon"
                 style={{ padding: "0px 15px" }}
               />
@@ -63,15 +63,15 @@ function JumboWeather() {
                   <Typography className={classes.text}>
                     {unitOfMeasure === "imperial"
                       ? `${Math.round(
-                          defaultWeatherData?.current?.temp_f ?? ""
+                          defaultWeatherData.current.temp_f
                         )}°F`
                       : `${Math.round(
-                          defaultWeatherData?.current?.temp_c ?? ""
+                          defaultWeatherData.current.temp_c
                         )}°C`}
                   </Typography>
                   <Typography className={classes.text}>
-                    {defaultWeatherData?.location?.name ?? ""},{" "}
-                    {defaultWeatherData?.location?.region ?? ""}
+                    {defaultWeatherData.location.name},{" "}
+                    {defaultWeatherData.location.region}
                   </Typography>
                 </Paper>
               </div>

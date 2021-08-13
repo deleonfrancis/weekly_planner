@@ -36,7 +36,7 @@ export default function MetricWeather() {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper elevation={0} className={classes.paper}>
-            <h1>{Math.round(weather?.current?.temp_c) ?? ""}°C</h1>
+            <h1>{Math.round(weather.current.temp_c)}°C</h1>
           </Paper>
         </Grid>
       </Grid>
@@ -46,8 +46,8 @@ export default function MetricWeather() {
             <p>
               High:{" "}
               {Math.round(
-                weather?.forecast?.forecastday[0]?.day?.maxtemp_c
-              ) ?? ""}
+                weather.forecast.forecastday[0].day.maxtemp_c
+              ) }
               °C
             </p>
           </Paper>
@@ -57,8 +57,8 @@ export default function MetricWeather() {
             <p>
               Low:{" "}
               {Math.round(
-                weather?.forecast?.forecastday[0]?.day?.mintemp_c
-              ) ?? ""}
+                weather.forecast.forecastday[0].day.mintemp_c
+              )}
               °C
             </p>
           </Paper>
@@ -68,7 +68,7 @@ export default function MetricWeather() {
         <Paper elevation={0} className={classes.paper}>
           <p>
             Feels Like:{" "}
-            {Math.round(weather?.current?.feelslike_c) ?? ""}°C
+            {Math.round(weather.current.feelslike_c)}°C
           </p>
         </Paper>
       </Grid>
@@ -76,7 +76,7 @@ export default function MetricWeather() {
         <Grid item xs={4}>
           <Paper elevation={0} className={classes.paper}>
             <p style={{ fontSize: "20px" }}>
-              Humidity: {weather?.current?.humidity ?? ""}%
+              Humidity: {weather.current.humidity}%
             </p>
           </Paper>
         </Grid>
@@ -85,20 +85,20 @@ export default function MetricWeather() {
             <ul style={{ listStyleType: "none", padding: "0px" }}>
               Wind
               <li style={{ fontSize: "15px" }}>
-                {weather?.current?.wind_kph ?? ""} kph
+                {weather.current.wind_kph} kph
               </li>
               <li style={{ fontSize: "15px" }}>
-                Direction: {weather?.current?.wind_dir ?? ""}
+                Direction: {weather.current.wind_dir}
               </li>
               <li style={{ fontSize: "15px" }}>
-                Degree: {weather?.current?.wind_degree ?? ""}°
+                Degree: {weather.current.wind_degree}°
               </li>
             </ul>
           </Paper>
         </Grid>
         <Grid item xs={4}>
           <Paper elevation={0} className={classes.paper}>
-            <p>UV Index: {weather?.current?.uv ?? ""}</p>
+            <p>UV Index: {weather.current.uv}</p>
           </Paper>
         </Grid>
       </Grid>
