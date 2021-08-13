@@ -1,26 +1,3 @@
-// import { getWeather } from "./getWeather";
-
-// // Logic for getting weather for nearby location
-// let lat = "";
-// let long = "";
-
-// export function currentPositionWeatherService() {
-//   if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(getGeoWeather, showError);
-//   } else {
-//     console.log("geolocation error");
-//     //   $("#error-display")
-//     //     .text("Geolocation is not supported by this browser.")
-//     //     .addClass("mt-5");
-//   }
-// }
-
-// function getGeoWeather(position) {
-//   lat = position.coords.latitude;
-//   long = position.coords.longitude;
-//   getWeather(`${lat} ${long}`);
-// }
-
 export function showError(error) {
   // setLoading(false);
   switch (error.code) {

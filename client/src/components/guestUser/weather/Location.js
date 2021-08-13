@@ -17,13 +17,13 @@ export default function Location() {
 
   return (
     <div>
-      {weather?.location?.country === "United States of America" ? (
+      {(weather.location.country === "United States of America") ? (
         <h2 className={{ marginTop: "0px" }}>
-          {weather?.location?.name}, {weather?.location?.region}
+          {weather.location.name}, {weather.location.region}
         </h2>
       ) : (
         <h2 className={{ marginTop: "0px" }}>
-          {weather?.location?.name}, {weather?.location?.country}
+          {weather.location.name}, {weather.location.country}
         </h2>
       )}
     </div>

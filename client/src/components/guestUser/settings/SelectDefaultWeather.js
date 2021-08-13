@@ -11,7 +11,6 @@ import PlacesAutocomplete from "react-places-autocomplete";
 import { Paper } from "@material-ui/core";
 import {
   setDefaultWeather,
-  getSearchedWeather,
   setDefaultWeatherData
 } from "../../../redux/actions/weatherActions";
 
