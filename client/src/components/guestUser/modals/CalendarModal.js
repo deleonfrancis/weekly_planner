@@ -23,7 +23,7 @@ function CalendarModal() {
             end: "2021-08-16T14:30:00",
           },
           {id:"2",
-            title: "Eat Out",
+            title: "Eat Out2",
             start: "2021-08-16T13:30:00",
             end: "2021-08-16T16:30:00",
           },
