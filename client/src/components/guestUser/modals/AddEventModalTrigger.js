@@ -1,35 +1,32 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
-import TodayIcon from "@material-ui/icons/Today";
 import { Fade, Grid, Modal, Paper } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
-import CalendarModal from "../modals/CalendarModal";
-import AddEventModalTrigger from "../modals/AddEventModalTrigger";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  calendarIcon: {
-    "&:hover": {
-      backgroundColor: "transparent",
-    },
-  },
+
   modal: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    // height: "55%",
   },
   paper: {
     backgroundColor: "transparent",
     padding: theme.spacing(4, 8, 6),
     height: "55%",
   },
+  addEvent: {
+    // alignContent: "flex-end",
+    margin: theme.spacing(1),
+  },
 }));
 
-function CalendarModalTrigger() {
+function AddEventModalTrigger() {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -43,10 +40,14 @@ function CalendarModalTrigger() {
   };
   return (
     <div>
-      <div onClick={handleOpen} className={classes.root}>
-        <Grid container justifyContent="center">
-          <IconButton className={classes.calendarIcon}>
-            <TodayIcon style={{ fontSize: "350px", margin: "10px" }} />
+      <div className={classes.root}>
+        <Grid container justifyContent="flex-start">
+          <IconButton
+            onClick={handleOpen}
+            aria-label="add"
+            className={classes.addEvent}
+          >
+            <AddIcon fontSize="large" />
           </IconButton>
         </Grid>
       </div>
@@ -66,10 +67,9 @@ function CalendarModalTrigger() {
         <Fade in={open}>
           <Paper>
             <div className={classes.paper}>
-              {/* <h2 id="transition-modal-title-calendar">Calendar</h2> */}
-              <AddEventModalTrigger />
-              <div id="modal-description-calendar">
-                <CalendarModal />
+              <h2 id="transition-modal-title-addEvent">Add Event</h2>
+              <div id="modal-description-addEvent">
+                This is where adding an event will go.
               </div>
             </div>
           </Paper>
@@ -79,4 +79,4 @@ function CalendarModalTrigger() {
   );
 }
 
-export default CalendarModalTrigger;
+export default AddEventModalTrigger;
