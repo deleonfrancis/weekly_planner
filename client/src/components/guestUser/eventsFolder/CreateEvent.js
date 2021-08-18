@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -87,6 +87,7 @@ const IOSSwitch = withStyles((theme) => ({
 function CreateEvent({ handleCloseModal }) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { dateClicked } = useSelector((state) => state.eventReducer);
   const [title, setTitle] = useState("");
   const [allDay, setAllDay] = useState(false);
   const [selectedStartDate, setSelectedStartDate] = useState(
@@ -97,11 +98,14 @@ function CreateEvent({ handleCloseModal }) {
   );
 
   useEffect(() => {
-    // console.log(title);
-    // console.log(allDay);
-    console.log(selectedStartDate);
-    console.log(selectedEndDate);
-  }, [title, allDay, selectedStartDate, selectedEndDate]);
+    if (dateClicked) {
+      setSelectedStartDate(dateClicked.date);
+      setSelectedEndDate(dateClicked.date);
+    } else {
+      setSelectedStartDate(new Date().toUTCString());
+      setSelectedEndDate(new Date().toUTCString());
+    }
+  }, [title, allDay, selectedStartDate, selectedEndDate, dateClicked]);
 
   const handleChange = (e) => {
     setTitle(e.target.value);

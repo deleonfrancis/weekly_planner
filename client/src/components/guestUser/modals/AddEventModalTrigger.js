@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import { Fade, Grid, Modal, Paper } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import AddIcon from "@material-ui/icons/Add";
 import CreateEvent from "../eventsFolder/CreateEvent";
+import {
+  closeCreateEventModal,
+  openCreateEventModal,
+} from "../../../redux/actions/eventActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,15 +34,16 @@ const useStyles = makeStyles((theme) => ({
 
 function AddEventModalTrigger() {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const [open, setOpen] = useState(false);
+  const { showCreateEventModal } = useSelector((state) => state.eventReducer);
 
   const handleOpen = () => {
-    setOpen(true);
+    dispatch(openCreateEventModal());
   };
 
   const handleClose = () => {
-    setOpen(false);
+    dispatch(closeCreateEventModal());
   };
   return (
     <div>
@@ -57,7 +63,7 @@ function AddEventModalTrigger() {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
-        open={open}
+        open={showCreateEventModal}
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -65,7 +71,7 @@ function AddEventModalTrigger() {
           timeout: 500,
         }}
       >
-        <Fade in={open}>
+        <Fade in={showCreateEventModal}>
           <Paper>
             <div className={classes.paper}>
               <h2 id="transition-modal-title-addEvent">Create Event</h2>
