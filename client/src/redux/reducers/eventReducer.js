@@ -14,7 +14,7 @@ const initialState = {
     },
     {
       id: "2",
-      title: "Eat Out2",
+      title: "Eat Out",
       start: "2021-08-16T13:30:00",
       end: "2021-08-16T16:30:00",
     },

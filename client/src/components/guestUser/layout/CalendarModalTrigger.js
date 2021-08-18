@@ -43,9 +43,9 @@ function CalendarModalTrigger() {
   };
   return (
     <div>
-      <div onClick={handleOpen} className={classes.root}>
+      <div className={classes.root}>
         <Grid container justifyContent="center">
-          <IconButton className={classes.calendarIcon}>
+          <IconButton onClick={handleOpen} className={classes.calendarIcon}>
             <TodayIcon style={{ fontSize: "350px", margin: "10px" }} />
           </IconButton>
         </Grid>

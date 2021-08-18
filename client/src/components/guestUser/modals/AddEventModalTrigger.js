@@ -4,6 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { Fade, Grid, Modal, Paper } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import AddIcon from "@material-ui/icons/Add";
+import CreateEvent from "../eventsFolder/CreateEvent";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,9 +68,9 @@ function AddEventModalTrigger() {
         <Fade in={open}>
           <Paper>
             <div className={classes.paper}>
-              <h2 id="transition-modal-title-addEvent">Add Event</h2>
+              <h2 id="transition-modal-title-addEvent">Create Event</h2>
               <div id="modal-description-addEvent">
-                This is where adding an event will go.
+                <CreateEvent />
               </div>
             </div>
           </Paper>
