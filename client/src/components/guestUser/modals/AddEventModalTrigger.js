@@ -70,7 +70,7 @@ function AddEventModalTrigger() {
             <div className={classes.paper}>
               <h2 id="transition-modal-title-addEvent">Create Event</h2>
               <div id="modal-description-addEvent">
-                <CreateEvent />
+                <CreateEvent handleCloseModal={handleClose} />
               </div>
             </div>
           </Paper>

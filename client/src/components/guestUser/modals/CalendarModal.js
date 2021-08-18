@@ -9,9 +9,9 @@ import listPlugin from "@fullcalendar/list";
 
 function CalendarModal() {
   const { events } = useSelector((state) => state.eventReducer);
-  console.log(events);
+  // console.log(events);
   useEffect(() => {
-    console.log(events);
+    // console.log(events);
   }, [events]);
   return (
     <div style={{ width: "900px", height: "800px" }}>
