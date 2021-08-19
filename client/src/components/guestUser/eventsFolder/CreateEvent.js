@@ -112,7 +112,7 @@ function CreateEvent({ handleCloseModal }) {
       setSelectedStartDate(new Date().toUTCString());
       setSelectedEndDate(new Date().toUTCString());
     }
-  }, [title, allDay, selectedStartDate, selectedEndDate, dateClicked]);
+  }, []);
 
   const handleChange = (e) => {
     setTitle(e.target.value);

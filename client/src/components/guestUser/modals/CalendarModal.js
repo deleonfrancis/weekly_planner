@@ -8,8 +8,10 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import {
   openCreateEventModal,
+  openUpdateOrDeleteEventModal,
   setDateClicked,
 } from "../../../redux/actions/eventActions";
+import UpdateAndDeleteEvent from "../eventsFolder/UpdateAndDeleteEvent";
 
 function CalendarModal() {
   const { events } = useSelector((state) => state.eventReducer);
@@ -23,15 +25,16 @@ function CalendarModal() {
     dispatch(setDateClicked(date));
     dispatch(openCreateEventModal());
   };
+  const handleEventClicked = (event) => {
+    dispatch(openUpdateOrDeleteEventModal(event));
+  };
   const calendarClasses = {
-    cursor: "pointer",
+    // cursor: "pointer",
     width: "900px",
     // height: "800px",
   };
   return (
-    <div
-      style={calendarClasses}
-    >
+    <div style={calendarClasses}>
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin, listPlugin, timeGridPlugin]}
         initialView="dayGridMonth"
@@ -42,10 +45,10 @@ function CalendarModal() {
         }}
         events={events}
         dateClick={(date) => handleOpenDateClickedModal(date)}
-        eventClick={()=>{console.log("event clicked")}}
+        eventClick={(event) => handleEventClicked(event)}
         editable={true}
-
       />
+      <UpdateAndDeleteEvent />
     </div>
   );
 }

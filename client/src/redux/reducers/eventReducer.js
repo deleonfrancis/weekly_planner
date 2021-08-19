@@ -4,6 +4,10 @@ import {
   CLOSE_CREATE_EVENT_MODAL,
   SET_DATE_CLICKED,
   CLEAR_DATE_CLICKED,
+  OPEN_UPDATE_DELETE_EVENT_MODAL,
+  CLOSE_UPDATE_DELETE_EVENT_MODAL,
+  SET_SELECTED_EVENT,
+  CLEAR_SELECTED_EVENT,
   // UPDATE_EVENT,
   // DELETE_EVENT
 } from "../actions/types";
@@ -35,7 +39,12 @@ const initialState = {
       start: "2021-08-18T13:30:00",
       end: "2021-08-18T16:30:00",
     },
-    { id: "6", title: "Computer Programming", start: "2021-08-17", end: "2021-08-17" },
+    {
+      id: "6",
+      title: "Computer Programming",
+      start: "2021-08-17",
+      end: "2021-08-17",
+    },
     {
       id: "7",
       title: "Eat Out",
@@ -59,7 +68,9 @@ const initialState = {
     { id: "12", title: "Eat Out", start: "2021-08-21", end: "2021-08-21" },
   ],
   showCreateEventModal: false,
+  showUpdateOrDeleteEventModal: false,
   dateClicked: null,
+  selectedEvent: null
 };
 
 // eslint-disable-next-line
@@ -81,6 +92,17 @@ export default function (state = initialState, action) {
         ...state,
         showCreateEventModal: payload,
       };
+    case OPEN_UPDATE_DELETE_EVENT_MODAL:
+      return {
+        ...state,
+        showUpdateOrDeleteEventModal: payload,
+      };
+    case CLOSE_UPDATE_DELETE_EVENT_MODAL:
+      return {
+        ...state,
+        showUpdateOrDeleteEventModal: payload,
+      };
+
     case SET_DATE_CLICKED:
       return {
         ...state,
@@ -90,6 +112,16 @@ export default function (state = initialState, action) {
       return {
         ...state,
         dateClicked: payload,
+      };
+    case SET_SELECTED_EVENT:
+      return {
+        ...state,
+        selectedEvent: payload,
+      };
+    case CLEAR_SELECTED_EVENT:
+      return {
+        ...state,
+        selectedEvent: payload,
       };
     default:
       return state;
