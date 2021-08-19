@@ -34,8 +34,8 @@ export const closeUpdateOrDeleteEventModal = () => (dispatch) => {
   dispatch({ type: CLEAR_SELECTED_EVENT, payload: null });
 };
 export const deleteEvent = (id) => (dispatch) => {
-  dispatch({ type: DELETE_EVENT, payload: id });
   dispatch({ type: CLOSE_UPDATE_DELETE_EVENT_MODAL, payload: false });
+  dispatch({ type: DELETE_EVENT, payload: id });
   dispatch({ type: CLEAR_SELECTED_EVENT, payload: null });
 };
 

@@ -1,11 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Fade, Modal, Paper } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { closeUpdateOrDeleteEventModal, deleteEvent } from "../../../redux/actions/eventActions";
+import CancelIcon from "@material-ui/icons/Cancel";
+import {
+  closeUpdateOrDeleteEventModal,
+  deleteEvent,
+} from "../../../redux/actions/eventActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +36,21 @@ const useStyles = makeStyles((theme) => ({
       color: "red",
     },
   },
+  deleteButton: {
+    margin: theme.spacing(1),
+    backgroundColor: "#23078a",
+    "&:hover": {
+      backgroundColor: "red",
+    },
+  },
+  cancelButton: {
+    margin: theme.spacing(1),
+    backgroundColor: "#23078a",
+    "&:hover": {
+      backgroundColor: "transparent",
+      color: "green",
+    },
+  },
 }));
 
 function UpdateAndDeleteEvent() {
@@ -41,18 +61,22 @@ function UpdateAndDeleteEvent() {
     (state) => state.eventReducer
   );
 
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+
   useEffect(() => {
     //   const event = {selectedEvent}
     //   console.log(event.selectedEvent)
     if (!selectedEvent) {
       return;
-    } else console.log(selectedEvent.id);
+    } else console.log(selectedEvent);
   }, [selectedEvent]);
 
   const handleClose = () => {
     dispatch(closeUpdateOrDeleteEventModal());
   };
+
   const handleDelete = (id) => {
+    setShowConfirmDelete(false);
     dispatch(deleteEvent(id));
   };
 
@@ -82,12 +106,56 @@ function UpdateAndDeleteEvent() {
                 </div>
                 <IconButton
                   className={classes.deleteIcon}
-                  onClick={() => handleDelete(selectedEvent.id)}
+                  onClick={() => setShowConfirmDelete(true)}
                   edge="end"
                   aria-label="delete"
                 >
                   <DeleteIcon />
                 </IconButton>
+              </div>
+            </Paper>
+          </Fade>
+        </Modal>
+      )}
+      {showConfirmDelete && (
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={showConfirmDelete}
+          onClose={() => setShowConfirmDelete(false)}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={showConfirmDelete}>
+            <Paper>
+              <div className={classes.paper}>
+                <h3 id="confirm-delete">
+                  {`Delete "${selectedEvent.title}?"`}
+                </h3>
+                <div>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => handleDelete(selectedEvent.id)}
+                    className={classes.deleteButton}
+                    startIcon={<DeleteIcon />}
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => setShowConfirmDelete(false)}
+                    className={classes.cancelButton}
+                    startIcon={<CancelIcon />}
+                  >
+                    Cancel
+                  </Button>
+                </div>
               </div>
             </Paper>
           </Fade>
