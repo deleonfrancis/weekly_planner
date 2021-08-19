@@ -1,52 +1,60 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
-import TodayIcon from "@material-ui/icons/Today";
 import { Fade, Grid, Modal, Paper } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
-import CalendarModal from "../modals/CalendarModal";
-import AddEventModalTrigger from "../modals/AddEventModalTrigger";
+import AddIcon from "@material-ui/icons/Add";
+import CreateEvent from "../eventsFolder/CreateEvent";
+import {
+  closeCreateEventModal,
+  openCreateEventModal,
+} from "../../../redux/actions/eventActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  calendarIcon: {
-    "&:hover": {
-      backgroundColor: "transparent",
-    },
-  },
+
   modal: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    // height: "55%",
   },
   paper: {
     backgroundColor: "transparent",
     padding: theme.spacing(4, 8, 6),
     height: "55%",
   },
+  addEvent: {
+    // alignContent: "flex-end",
+    margin: theme.spacing(1),
+  },
 }));
 
-function CalendarModalTrigger() {
+function AddEventModalTrigger() {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const [open, setOpen] = useState(false);
+  const { showCreateEventModal } = useSelector((state) => state.eventReducer);
 
   const handleOpen = () => {
-    setOpen(true);
+    dispatch(openCreateEventModal());
   };
 
   const handleClose = () => {
-    setOpen(false);
+    dispatch(closeCreateEventModal());
   };
   return (
     <div>
       <div className={classes.root}>
-        <Grid container justifyContent="center">
-          <IconButton onClick={handleOpen} className={classes.calendarIcon}>
-            <TodayIcon style={{ fontSize: "350px", margin: "10px" }} />
+        <Grid container justifyContent="flex-start">
+          <IconButton
+            onClick={handleOpen}
+            aria-label="add"
+            className={classes.addEvent}
+          >
+            <AddIcon fontSize="large" />
           </IconButton>
         </Grid>
       </div>
@@ -55,7 +63,7 @@ function CalendarModalTrigger() {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
-        open={open}
+        open={showCreateEventModal}
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -63,13 +71,12 @@ function CalendarModalTrigger() {
           timeout: 500,
         }}
       >
-        <Fade in={open}>
+        <Fade in={showCreateEventModal}>
           <Paper>
             <div className={classes.paper}>
-              {/* <h2 id="transition-modal-title-calendar">Calendar</h2> */}
-              <AddEventModalTrigger />
-              <div id="modal-description-calendar">
-                <CalendarModal />
+              <h2 id="transition-modal-title-addEvent">Create Event</h2>
+              <div id="modal-description-addEvent">
+                <CreateEvent handleCloseModal={handleClose} />
               </div>
             </div>
           </Paper>
@@ -79,4 +86,4 @@ function CalendarModalTrigger() {
   );
 }
 
-export default CalendarModalTrigger;
+export default AddEventModalTrigger;
