@@ -45,7 +45,7 @@ function CalendarModal() {
         }}
         events={events}
         dateClick={(date) => handleOpenDateClickedModal(date)}
-        eventClick={(event) => handleEventClicked(event)}
+        eventClick={(info) => handleEventClicked(info.event)}
         editable={true}
       />
       <UpdateAndDeleteEvent />

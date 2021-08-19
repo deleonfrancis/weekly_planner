@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Fade, Modal, Paper } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import { makeStyles } from "@material-ui/core/styles";
-import { closeUpdateOrDeleteEventModal } from "../../../redux/actions/eventActions";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { closeUpdateOrDeleteEventModal, deleteEvent } from "../../../redux/actions/eventActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,23 +26,39 @@ const useStyles = makeStyles((theme) => ({
     // alignContent: "flex-end",
     margin: theme.spacing(1),
   },
+  deleteIcon: {
+    "&:hover": {
+      color: "red",
+    },
+  },
 }));
 
 function UpdateAndDeleteEvent() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const { showUpdateOrDeleteEventModal } = useSelector(
+  const { showUpdateOrDeleteEventModal, selectedEvent } = useSelector(
     (state) => state.eventReducer
   );
+
+  useEffect(() => {
+    //   const event = {selectedEvent}
+    //   console.log(event.selectedEvent)
+    if (!selectedEvent) {
+      return;
+    } else console.log(selectedEvent.id);
+  }, [selectedEvent]);
 
   const handleClose = () => {
     dispatch(closeUpdateOrDeleteEventModal());
   };
+  const handleDelete = (id) => {
+    dispatch(deleteEvent(id));
+  };
 
   return (
     <div>
-      {showUpdateOrDeleteEventModal && (
+      {showUpdateOrDeleteEventModal && selectedEvent && (
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
@@ -56,10 +74,20 @@ function UpdateAndDeleteEvent() {
           <Fade in={showUpdateOrDeleteEventModal}>
             <Paper>
               <div className={classes.paper}>
-                <h2 id="transition-modal-title-addEvent">Event Title</h2>
+                <h2 id="transition-modal-title-addEvent">
+                  {selectedEvent.title}
+                </h2>
                 <div id="modal-description-addEvent">
                   this is where the update and delete will go
                 </div>
+                <IconButton
+                  className={classes.deleteIcon}
+                  onClick={() => handleDelete(selectedEvent.id)}
+                  edge="end"
+                  aria-label="delete"
+                >
+                  <DeleteIcon />
+                </IconButton>
               </div>
             </Paper>
           </Fade>

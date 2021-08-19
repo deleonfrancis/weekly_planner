@@ -9,7 +9,7 @@ import {
   SET_SELECTED_EVENT,
   CLEAR_SELECTED_EVENT,
   // UPDATE_EVENT,
-  // DELETE_EVENT
+  DELETE_EVENT,
 } from "../actions/types";
 
 const initialState = {
@@ -70,7 +70,7 @@ const initialState = {
   showCreateEventModal: false,
   showUpdateOrDeleteEventModal: false,
   dateClicked: null,
-  selectedEvent: null
+  selectedEvent: null,
 };
 
 // eslint-disable-next-line
@@ -81,6 +81,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         events: [payload, ...state.events],
+      };
+    case DELETE_EVENT:
+      return {
+        ...state,
+        events: state.events.filter((event) => event.id !== payload),
       };
     case OPEN_CREATE_EVENT_MODAL:
       return {
