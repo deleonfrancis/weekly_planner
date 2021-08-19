@@ -99,8 +99,15 @@ function CreateEvent({ handleCloseModal }) {
 
   useEffect(() => {
     if (dateClicked) {
-      setSelectedStartDate(dateClicked.date);
-      setSelectedEndDate(dateClicked.date);
+      if (
+        moment(dateClicked.date).format("MMM Do YY") === moment().format("MMM Do YY")
+      ) {
+        setSelectedStartDate(new Date().toUTCString());
+        setSelectedEndDate(new Date().toUTCString());
+      } else {
+        setSelectedStartDate(dateClicked.date);
+        setSelectedEndDate(dateClicked.date);
+      }
     } else {
       setSelectedStartDate(new Date().toUTCString());
       setSelectedEndDate(new Date().toUTCString());

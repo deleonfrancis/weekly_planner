@@ -6,7 +6,10 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
-import { openCreateEventModal, setDateClicked } from "../../../redux/actions/eventActions";
+import {
+  openCreateEventModal,
+  setDateClicked,
+} from "../../../redux/actions/eventActions";
 
 function CalendarModal() {
   const { events } = useSelector((state) => state.eventReducer);
@@ -17,11 +20,18 @@ function CalendarModal() {
   }, [events]);
 
   const handleOpenDateClickedModal = (date) => {
-    dispatch(setDateClicked(date))
+    dispatch(setDateClicked(date));
     dispatch(openCreateEventModal());
   };
+  const calendarClasses = {
+    cursor: "pointer",
+    width: "900px",
+    // height: "800px",
+  };
   return (
-    <div style={{ width: "900px", height: "800px" }}>
+    <div
+      style={calendarClasses}
+    >
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin, listPlugin, timeGridPlugin]}
         initialView="dayGridMonth"
@@ -32,7 +42,9 @@ function CalendarModal() {
         }}
         events={events}
         dateClick={(date) => handleOpenDateClickedModal(date)}
+        eventClick={()=>{console.log("event clicked")}}
         editable={true}
+
       />
     </div>
   );
