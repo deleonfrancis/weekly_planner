@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Fade, Modal, Paper } from "@material-ui/core";
+import { Fade, Modal, Paper, TextField } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { closeUpdateOrDeleteEventModal, deleteEvent } from "../../../redux/actions/eventActions";
+import {
+  closeUpdateOrDeleteEventModal,
+  deleteEvent,
+} from "../../../redux/actions/eventActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +33,18 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       color: "red",
     },
+  },
+  textField: {
+    width: 300,
+    margin: 0,
+  },
+  //style for font size
+  resize: {
+    fontSize: 25,
+    fontWeight: "bolder"
+  },
+  noBorder: {
+    border: "none",
   },
 }));
 
@@ -74,9 +89,22 @@ function UpdateOrDeleteEvent() {
           <Fade in={showUpdateOrDeleteEventModal}>
             <Paper>
               <div className={classes.paper}>
-                <h2 id="transition-modal-title-addEvent">
+                <TextField
+                  id="selected-title"
+                  defaultValue={selectedEvent.title}
+                  InputProps={{
+                    classes: {
+                      input: classes.resize,
+                    },
+                    disableUnderline: true,
+                  }}
+                  className={classes.textField}
+                  // InputProps={{ disableUnderline: true }}
+                  style={{ fontSize: "70px" }}
+                />
+                {/* <h2 id="transition-modal-title-addEvent">
                   {selectedEvent.title}
-                </h2>
+                </h2> */}
                 <div id="modal-description-addEvent">
                   this is where the update and delete will go
                 </div>
