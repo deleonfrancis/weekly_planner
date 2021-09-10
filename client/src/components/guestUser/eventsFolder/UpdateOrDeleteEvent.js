@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UpdateAndDeleteEvent() {
+function UpdateOrDeleteEvent() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -97,4 +97,4 @@ function UpdateAndDeleteEvent() {
   );
 }
 
-export default UpdateAndDeleteEvent;
+export default UpdateOrDeleteEvent;

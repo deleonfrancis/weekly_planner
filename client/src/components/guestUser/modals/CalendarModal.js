@@ -11,7 +11,7 @@ import {
   openUpdateOrDeleteEventModal,
   setDateClicked,
 } from "../../../redux/actions/eventActions";
-import UpdateAndDeleteEvent from "../eventsFolder/UpdateAndDeleteEvent";
+import UpdateOrDeleteEvent from "../eventsFolder/UpdateOrDeleteEvent";
 
 function CalendarModal() {
   const { events } = useSelector((state) => state.eventReducer);
@@ -48,7 +48,7 @@ function CalendarModal() {
         eventClick={(info) => handleEventClicked(info.event)}
         editable={true}
       />
-      <UpdateAndDeleteEvent />
+      <UpdateOrDeleteEvent />
     </div>
   );
 }
