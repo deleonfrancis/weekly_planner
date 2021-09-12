@@ -26,7 +26,16 @@ function CalendarModal() {
     dispatch(openCreateEventModal());
   };
   const handleEventClicked = (event) => {
-    dispatch(openUpdateOrDeleteEventModal(event));
+    // console.log(event)
+    const eventObject = {
+      id: event.id,
+      title: event.title,
+      start: event.start,
+      end: event.end,
+      allDay: event.allDay,
+      backgroundColor: event.backgroundColor,
+    };
+    dispatch(openUpdateOrDeleteEventModal(eventObject));
   };
   const calendarClasses = {
     // cursor: "pointer",

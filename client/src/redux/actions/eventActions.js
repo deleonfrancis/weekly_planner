@@ -8,8 +8,10 @@ import {
   CLOSE_UPDATE_DELETE_EVENT_MODAL,
   SET_SELECTED_EVENT,
   CLEAR_SELECTED_EVENT,
-  // UPDATE_EVENT,
-  DELETE_EVENT
+  UPDATE_EVENT,
+  DELETE_EVENT,
+  SET_EVENT_BACKGROUND_COLOR,
+  CLEAR_EVENT_BACKGROUND_COLOR
 } from "../actions/types";
 
 export const createEvent = (event) => (dispatch) => {
@@ -22,6 +24,10 @@ export const openCreateEventModal = () => (dispatch) => {
 export const closeCreateEventModal = () => (dispatch) => {
   dispatch({ type: CLOSE_CREATE_EVENT_MODAL, payload: false });
   dispatch({ type: CLEAR_DATE_CLICKED, payload: null });
+};
+
+export const updateEvent = (event) => (dispatch) => {
+  dispatch({ type: UPDATE_EVENT, payload: event });
 };
 
 export const openUpdateOrDeleteEventModal = (event) => (dispatch) => {
@@ -44,6 +50,12 @@ export const setDateClicked = (date) => (dispatch) => {
 };
 export const clearDateClicked = () => (dispatch) => {
   dispatch({ type: CLEAR_DATE_CLICKED, payload: null });
+};
+export const setEventBackgroundColor = (color) => (dispatch) => {
+  dispatch({ type: SET_EVENT_BACKGROUND_COLOR, payload: color });
+};
+export const clearEventBackgroundColor = () => (dispatch) => {
+  dispatch({ type: CLEAR_EVENT_BACKGROUND_COLOR });
 };
 
 

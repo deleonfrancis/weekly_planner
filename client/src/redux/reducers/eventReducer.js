@@ -8,8 +8,10 @@ import {
   CLOSE_UPDATE_DELETE_EVENT_MODAL,
   SET_SELECTED_EVENT,
   CLEAR_SELECTED_EVENT,
-  // UPDATE_EVENT,
+  UPDATE_EVENT,
   DELETE_EVENT,
+  SET_EVENT_BACKGROUND_COLOR,
+  CLEAR_EVENT_BACKGROUND_COLOR,
 } from "../actions/types";
 
 const initialState = {
@@ -17,60 +19,105 @@ const initialState = {
     {
       id: "1",
       title: "Meeting with Jake",
-      start: "2021-08-15T12:30:00",
-      end: "2021-08-15T14:30:00",
+      start: "2021-09-15T12:30:00",
+      end: "2021-09-15T14:30:00",
+      allDay: false,
+      backgroundColor: "blue",
     },
     {
       id: "2",
       title: "Rehearsal",
-      start: "2021-08-16T13:30:00",
-      end: "2021-08-16T16:30:00",
+      start: "2021-09-16T13:30:00",
+      end: "2021-09-16T16:30:00",
+      allDay: false,
+      backgroundColor: "blue",
     },
-    { id: "3", title: "Clean Garage", start: "2021-08-16", end: "2021-08-16" },
+    {
+      id: "3",
+      title: "Clean Garage",
+      start: "2021-09-16",
+      end: "2021-09-16",
+      allDay: true,
+      backgroundColor: "blue",
+    },
     {
       id: "4",
       title: "Meeting Dave",
-      start: "2021-08-17T12:30:00",
-      end: "2021-08-17T14:30:00",
+      start: "2021-09-17T12:30:00",
+      end: "2021-09-17T14:30:00",
+      allDay: false,
+      backgroundColor: "blue",
     },
     {
       id: "5",
       title: "Lunch with Karl",
-      start: "2021-08-18T13:30:00",
-      end: "2021-08-18T16:30:00",
+      start: "2021-09-18T13:30:00",
+      end: "2021-09-18T16:30:00",
+      allDay: false,
+      backgroundColor: "blue",
     },
     {
       id: "6",
       title: "Computer Programming",
-      start: "2021-08-17",
-      end: "2021-08-17",
+      start: "2021-09-17",
+      end: "2021-09-17",
+      allDay: true,
+      backgroundColor: "blue",
     },
     {
       id: "7",
       title: "Eat Out",
-      start: "2021-08-18T13:30:00",
-      end: "2021-08-18T16:30:00",
+      start: "2021-09-18T13:30:00",
+      end: "2021-09-18T16:30:00",
+      allDay: false,
+      backgroundColor: "blue",
     },
-    { id: "8", title: "Eat Out", start: "2021-08-17", end: "2021-08-17" },
+    {
+      id: "8",
+      title: "Eat Out",
+      start: "2021-09-17",
+      end: "2021-09-17",
+      allDay: true,
+      backgroundColor: "blue",
+    },
     {
       id: "9",
       title: "This Meeting",
-      start: "2021-08-18T12:30:00",
-      end: "2021-08-18T14:30:00",
+      start: "2021-09-18T12:30:00",
+      end: "2021-09-18T14:30:00",
+      allDay: false,
+      backgroundColor: "blue",
     },
     {
       id: "10",
       title: "Eat Out",
-      start: "2021-08-19T13:30:00",
-      end: "2021-08-19T16:30:00",
+      start: "2021-09-19T13:30:00",
+      end: "2021-09-19T16:30:00",
+      allDay: false,
+      backgroundColor: "blue",
     },
-    { id: "11", title: "Eat Out", start: "2021-08-20", end: "2021-08-20" },
-    { id: "12", title: "Eat Out", start: "2021-08-21", end: "2021-08-21" },
+    {
+      id: "11",
+      title: "Eat Out",
+      start: "2021-09-20",
+      end: "2021-09-20",
+      allDay: true,
+      backgroundColor: "blue",
+    },
+    {
+      id: "12",
+      title: "Eat Out",
+      start: "2021-09-21",
+      end: "2021-09-21",
+      allDay: true,
+      backgroundColor: "blue",
+    },
   ],
   showCreateEventModal: false,
   showUpdateOrDeleteEventModal: false,
   dateClicked: null,
   selectedEvent: null,
+  eventBackgroundColor: { color: { r: "74", g: "114", b: "226", a: "100" } },
 };
 
 // eslint-disable-next-line
@@ -81,6 +128,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         events: [payload, ...state.events],
+      };
+    case UPDATE_EVENT:
+      return {
+        ...state,
+        events: state.events.map((event) =>
+          event.id === payload.id ? payload : event
+        ),
       };
     case DELETE_EVENT:
       return {
@@ -127,6 +181,16 @@ export default function (state = initialState, action) {
       return {
         ...state,
         selectedEvent: payload,
+      };
+    case SET_EVENT_BACKGROUND_COLOR:
+      return {
+        ...state,
+        eventBackgroundColor: payload,
+      };
+    case CLEAR_EVENT_BACKGROUND_COLOR:
+      return {
+        ...state,
+        eventBackgroundColor: null,
       };
     default:
       return state;

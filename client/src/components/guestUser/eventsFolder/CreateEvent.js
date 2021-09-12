@@ -18,6 +18,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import moment from "moment";
 import { createEvent } from "../../../redux/actions/eventActions";
+import FunctionalEventColorSelector from "./FunctionalEventColorSelector";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,7 +88,9 @@ const IOSSwitch = withStyles((theme) => ({
 function CreateEvent({ handleCloseModal }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { dateClicked } = useSelector((state) => state.eventReducer);
+  const { dateClicked, eventBackgroundColor } = useSelector(
+    (state) => state.eventReducer
+  );
   const [title, setTitle] = useState("");
   const [allDay, setAllDay] = useState(false);
   const [selectedStartDate, setSelectedStartDate] = useState(
@@ -100,7 +103,8 @@ function CreateEvent({ handleCloseModal }) {
   useEffect(() => {
     if (dateClicked) {
       if (
-        moment(dateClicked.date).format("MMM Do YY") === moment().format("MMM Do YY")
+        moment(dateClicked.date).format("MMM Do YY") ===
+        moment().format("MMM Do YY")
       ) {
         setSelectedStartDate(new Date().toUTCString());
         setSelectedEndDate(new Date().toUTCString());
@@ -112,7 +116,8 @@ function CreateEvent({ handleCloseModal }) {
       setSelectedStartDate(new Date().toUTCString());
       setSelectedEndDate(new Date().toUTCString());
     }
-  }, []);
+    console.log(eventBackgroundColor);
+  }, [eventBackgroundColor]);
 
   const handleChange = (e) => {
     setTitle(e.target.value);
@@ -144,6 +149,8 @@ function CreateEvent({ handleCloseModal }) {
           title: title,
           start: moment(selectedStartDate).format(),
           end: moment(selectedEndDate).format(),
+          allDay: false,
+          backgroundColor: `rgba(${eventBackgroundColor.color.r}, ${eventBackgroundColor.color.g}, ${eventBackgroundColor.color.b}, ${eventBackgroundColor.color.a})`,
         })
       );
     } else {
@@ -153,6 +160,8 @@ function CreateEvent({ handleCloseModal }) {
           title: title,
           start: moment(selectedStartDate).format("YYYY-MM-DD"),
           end: moment(selectedEndDate).format("YYYY-MM-DD"),
+          allDay: true,
+          backgroundColor: `rgba(${eventBackgroundColor.color.r}, ${eventBackgroundColor.color.g}, ${eventBackgroundColor.color.b}, ${eventBackgroundColor.color.a})`,
         })
       );
     }
@@ -279,6 +288,9 @@ function CreateEvent({ handleCloseModal }) {
             </MuiPickersUtilsProvider>
           </div>
         )}
+      </div>
+      <div>
+        <FunctionalEventColorSelector />
       </div>
       <Button
         variant="contained"
