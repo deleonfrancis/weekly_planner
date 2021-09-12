@@ -22,7 +22,7 @@ const initialState = {
       start: "2021-09-15T12:30:00",
       end: "2021-09-15T14:30:00",
       allDay: false,
-      backgroundColor: "blue",
+      backgroundColor: "rgba(74, 114, 226, 100)",
     },
     {
       id: "2",
@@ -30,7 +30,7 @@ const initialState = {
       start: "2021-09-16T13:30:00",
       end: "2021-09-16T16:30:00",
       allDay: false,
-      backgroundColor: "blue",
+      backgroundColor: "rgba(74, 114, 226, 100)",
     },
     {
       id: "3",
@@ -38,7 +38,7 @@ const initialState = {
       start: "2021-09-16",
       end: "2021-09-16",
       allDay: true,
-      backgroundColor: "blue",
+      backgroundColor: "rgba(74, 114, 226, 100)",
     },
     {
       id: "4",
@@ -46,7 +46,7 @@ const initialState = {
       start: "2021-09-17T12:30:00",
       end: "2021-09-17T14:30:00",
       allDay: false,
-      backgroundColor: "blue",
+      backgroundColor: "rgba(74, 114, 226, 100)",
     },
     {
       id: "5",
@@ -54,7 +54,7 @@ const initialState = {
       start: "2021-09-18T13:30:00",
       end: "2021-09-18T16:30:00",
       allDay: false,
-      backgroundColor: "blue",
+      backgroundColor: "rgba(74, 114, 226, 100)",
     },
     {
       id: "6",
@@ -62,7 +62,7 @@ const initialState = {
       start: "2021-09-17",
       end: "2021-09-17",
       allDay: true,
-      backgroundColor: "blue",
+      backgroundColor: "rgba(74, 114, 226, 100)",
     },
     {
       id: "7",
@@ -70,7 +70,7 @@ const initialState = {
       start: "2021-09-18T13:30:00",
       end: "2021-09-18T16:30:00",
       allDay: false,
-      backgroundColor: "blue",
+      backgroundColor: "rgba(74, 114, 226, 100)",
     },
     {
       id: "8",
@@ -78,7 +78,7 @@ const initialState = {
       start: "2021-09-17",
       end: "2021-09-17",
       allDay: true,
-      backgroundColor: "blue",
+      backgroundColor: "rgba(74, 114, 226, 100)",
     },
     {
       id: "9",
@@ -86,7 +86,7 @@ const initialState = {
       start: "2021-09-18T12:30:00",
       end: "2021-09-18T14:30:00",
       allDay: false,
-      backgroundColor: "blue",
+      backgroundColor: "rgba(74, 114, 226, 100)",
     },
     {
       id: "10",
@@ -94,7 +94,7 @@ const initialState = {
       start: "2021-09-19T13:30:00",
       end: "2021-09-19T16:30:00",
       allDay: false,
-      backgroundColor: "blue",
+      backgroundColor: "rgba(74, 114, 226, 100)",
     },
     {
       id: "11",
@@ -102,7 +102,7 @@ const initialState = {
       start: "2021-09-20",
       end: "2021-09-20",
       allDay: true,
-      backgroundColor: "blue",
+      backgroundColor: "rgba(74, 114, 226, 100)",
     },
     {
       id: "12",
@@ -110,14 +110,14 @@ const initialState = {
       start: "2021-09-21",
       end: "2021-09-21",
       allDay: true,
-      backgroundColor: "blue",
+      backgroundColor: "rgba(74, 114, 226, 100)",
     },
   ],
   showCreateEventModal: false,
   showUpdateOrDeleteEventModal: false,
   dateClicked: null,
   selectedEvent: null,
-  eventBackgroundColor: { color: { r: "74", g: "114", b: "226", a: "100" } },
+  eventBackgroundColor: "rgba(74, 114, 226, 100)",
 };
 
 // eslint-disable-next-line

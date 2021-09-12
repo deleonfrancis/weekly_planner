@@ -116,8 +116,7 @@ function CreateEvent({ handleCloseModal }) {
       setSelectedStartDate(new Date().toUTCString());
       setSelectedEndDate(new Date().toUTCString());
     }
-    console.log(eventBackgroundColor);
-  }, [eventBackgroundColor]);
+  }, []);
 
   const handleChange = (e) => {
     setTitle(e.target.value);
@@ -150,7 +149,9 @@ function CreateEvent({ handleCloseModal }) {
           start: moment(selectedStartDate).format(),
           end: moment(selectedEndDate).format(),
           allDay: false,
-          backgroundColor: `rgba(${eventBackgroundColor.color.r}, ${eventBackgroundColor.color.g}, ${eventBackgroundColor.color.b}, ${eventBackgroundColor.color.a})`,
+          backgroundColor: eventBackgroundColor,
+          // backgroundColor: `rgba(${eventBackgroundColor.color.r}, ${eventBackgroundColor.color.g}, ${eventBackgroundColor.color.b}, ${eventBackgroundColor.color.a})`,
+          // bgColorObj: eventBackgroundColor,
         })
       );
     } else {
@@ -161,7 +162,9 @@ function CreateEvent({ handleCloseModal }) {
           start: moment(selectedStartDate).format("YYYY-MM-DD"),
           end: moment(selectedEndDate).format("YYYY-MM-DD"),
           allDay: true,
-          backgroundColor: `rgba(${eventBackgroundColor.color.r}, ${eventBackgroundColor.color.g}, ${eventBackgroundColor.color.b}, ${eventBackgroundColor.color.a})`,
+          backgroundColor: eventBackgroundColor,
+          // backgroundColor: `rgba(${eventBackgroundColor.color.r}, ${eventBackgroundColor.color.g}, ${eventBackgroundColor.color.b}, ${eventBackgroundColor.color.a})`,
+          // bgColorObj: eventBackgroundColor,
         })
       );
     }

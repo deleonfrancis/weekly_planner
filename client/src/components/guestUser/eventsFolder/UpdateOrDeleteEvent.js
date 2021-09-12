@@ -9,7 +9,9 @@ import {
   closeUpdateOrDeleteEventModal,
   updateEvent,
   deleteEvent,
+  setEventBackgroundColor,
 } from "../../../redux/actions/eventActions";
+import FunctionalEventColorSelector from "./FunctionalEventColorSelector";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,19 +62,14 @@ function UpdateOrDeleteEvent() {
   // Bool variable to conditionally show underline of the input title
   const [showUnderline, setShowUnderline] = useState(true);
 
-  // Variable to store title change
-  // const [titleChange, setTitleChange] = useState(selectedEvent);
-
-  // const [updatedEvent, setUpdatedEvent] = useState(selectedEvent)
-
   useEffect(() => {
-    // const event = {selectedEvent}
-    // console.log(event.selectedEvent)
     // console.log(selectedEvent);
-    // console.log(selectedEvent.title);
+
     if (!selectedEvent) {
       return;
     } else {
+      dispatch(setEventBackgroundColor(selectedEvent.backgroundColor));
+      // console.log(selectedEvent.backgroundColor);
       // console.log(selectedEvent);
       // console.log(titleChange);
       // setTitleChange(selectedEvent.title)
@@ -86,20 +83,14 @@ function UpdateOrDeleteEvent() {
     dispatch(deleteEvent(id));
   };
 
-  
-
+  // Changes the title on input change
   const handleChangeTitle = (newTitle) => {
-    // const titleChange = selectedEvent.assign(selectedEvent.title === newTitle);
-    // titleChange(newTitle)
-    // console.log(titleChange);
-    // console.log(selectedEvent, selectedEvent.title === newTitle)
-    // console.log(newTitle)
-    // console.log(selectedEvent.title)
-    dispatch(updateEvent({
-      ...selectedEvent,
-      title: newTitle
-    }))
-    // console.log(titleChange);
+    dispatch(
+      updateEvent({
+        ...selectedEvent,
+        title: newTitle,
+      })
+    );
   };
 
   return (
@@ -145,6 +136,7 @@ function UpdateOrDeleteEvent() {
                 <div id="modal-description-addEvent">
                   this is where the update and delete will go
                 </div>
+                <FunctionalEventColorSelector />
                 {/* Delete Button */}
                 <IconButton
                   className={classes.deleteIcon}

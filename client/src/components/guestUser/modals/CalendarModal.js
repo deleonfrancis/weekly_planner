@@ -35,6 +35,8 @@ function CalendarModal() {
       allDay: event.allDay,
       backgroundColor: event.backgroundColor,
     };
+    // console.log("event: ", event)
+    // console.log("eventObject: ", eventObject)
     dispatch(openUpdateOrDeleteEventModal(eventObject));
   };
   const calendarClasses = {

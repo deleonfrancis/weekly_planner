@@ -9,7 +9,7 @@ function FunctionalEventColorSelector() {
 
   const [state, setState] = useState({
     displayColorPicker: false,
-    color: eventBackgroundColor.color,
+    //color: eventBackgroundColor,
   });
   const dispatch = useDispatch();
 
@@ -25,9 +25,11 @@ function FunctionalEventColorSelector() {
   };
 
   const handleChange = (color) => {
-    setState((obj) => ({ ...obj, color: color.rgb }));
-    const selectedColor = { color: color.rgb };
-    dispatch(setEventBackgroundColor(selectedColor));
+    // const selectedColor = { color: color.rgb };
+    const newColor = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`;
+    //setState((obj) => ({ ...obj, color: newColor }));
+    // console.log("newColor: ", newColor);
+    dispatch(setEventBackgroundColor(newColor));
   };
 
   const styles = reactCSS({
@@ -36,7 +38,8 @@ function FunctionalEventColorSelector() {
         width: "36px",
         height: "14px",
         borderRadius: "2px",
-        background: `rgba(${state.color.r}, ${state.color.g}, ${state.color.b}, ${state.color.a})`,
+        background: eventBackgroundColor,
+        // background: `rgba(${state.color.r}, ${state.color.g}, ${state.color.b}, ${state.color.a})`,
       },
       swatch: {
         padding: "5px",
@@ -69,7 +72,7 @@ function FunctionalEventColorSelector() {
       {state.displayColorPicker ? (
         <div style={styles.popover}>
           <div style={styles.cover} onClick={handleClose} />
-          <SketchPicker color={state.color} onChange={handleChange} />
+          <SketchPicker color={eventBackgroundColor} onChange={handleChange} />
         </div>
       ) : null}
     </div>
