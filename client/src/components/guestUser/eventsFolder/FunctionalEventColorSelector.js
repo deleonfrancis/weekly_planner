@@ -2,20 +2,24 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import reactCSS from "reactcss";
 import { SketchPicker } from "react-color";
-import { setEventBackgroundColor } from "../../../redux/actions/eventActions";
+import {
+  setEventBackgroundColor,
+  updateEvent,
+} from "../../../redux/actions/eventActions";
 
 function FunctionalEventColorSelector() {
-  const { eventBackgroundColor } = useSelector((state) => state.eventReducer);
+  const { eventBackgroundColor, selectedEvent } = useSelector(
+    (state) => state.eventReducer
+  );
 
   const [state, setState] = useState({
     displayColorPicker: false,
-    //color: eventBackgroundColor,
   });
   const dispatch = useDispatch();
 
   const handleClick = () => {
     setState((obj) => ({
-      ...obj,
+      // ...obj,
       displayColorPicker: !obj.displayColorPicker,
     }));
   };
@@ -25,11 +29,21 @@ function FunctionalEventColorSelector() {
   };
 
   const handleChange = (color) => {
-    // const selectedColor = { color: color.rgb };
-    const newColor = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`;
-    //setState((obj) => ({ ...obj, color: newColor }));
-    // console.log("newColor: ", newColor);
-    dispatch(setEventBackgroundColor(newColor));
+    if (!selectedEvent) {
+      const newColor = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`;
+      dispatch(setEventBackgroundColor(newColor));
+      return newColor;
+    } else if (selectedEvent) {
+      const newSelectedColor = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`;
+      dispatch(setEventBackgroundColor(newSelectedColor));
+      dispatch(
+        updateEvent({
+          ...selectedEvent,
+          backgroundColor: newSelectedColor,
+        })
+      );
+      return newSelectedColor;
+    }
   };
 
   const styles = reactCSS({
@@ -39,7 +53,6 @@ function FunctionalEventColorSelector() {
         height: "14px",
         borderRadius: "2px",
         background: eventBackgroundColor,
-        // background: `rgba(${state.color.r}, ${state.color.g}, ${state.color.b}, ${state.color.a})`,
       },
       swatch: {
         padding: "5px",
