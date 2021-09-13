@@ -27,6 +27,8 @@ export const closeCreateEventModal = () => (dispatch) => {
 };
 
 export const updateEvent = (event) => (dispatch) => {
+  // console.log("updated event fired")
+  // console.log(event)
   dispatch({ type: UPDATE_EVENT, payload: event });
 };
 

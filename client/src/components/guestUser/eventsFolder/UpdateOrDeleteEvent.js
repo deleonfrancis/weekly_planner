@@ -3,8 +3,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { Fade, Modal, Paper, TextField } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import { makeStyles } from "@material-ui/core/styles";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import { withStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Grid from "@material-ui/core/Grid";
+import DateFnsUtils from "@date-io/date-fns";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
 import {
   closeUpdateOrDeleteEventModal,
   updateEvent,
@@ -51,6 +62,60 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const IOSSwitch = withStyles((theme) => ({
+  root: {
+    width: 42,
+    height: 26,
+    padding: 0,
+    margin: theme.spacing(1),
+  },
+  switchBase: {
+    padding: 1,
+    "&$checked": {
+      transform: "translateX(16px)",
+      color: theme.palette.common.white,
+      "& + $track": {
+        backgroundColor: "#52d869",
+        opacity: 1,
+        border: "none",
+      },
+    },
+    "&$focusVisible $thumb": {
+      color: "#52d869",
+      border: "6px solid #fff",
+    },
+  },
+  thumb: {
+    width: 24,
+    height: 24,
+  },
+  track: {
+    borderRadius: 26 / 2,
+    border: `1px solid ${theme.palette.grey[400]}`,
+    backgroundColor: theme.palette.grey[50],
+    opacity: 1,
+    transition: theme.transitions.create(["background-color", "border"]),
+  },
+  checked: {},
+  focusVisible: {},
+}))(({ classes, ...props }) => {
+  return (
+    <Switch
+      focusVisibleClassName={classes.focusVisible}
+      disableRipple
+      classes={{
+        root: classes.root,
+        switchBase: classes.switchBase,
+        thumb: classes.thumb,
+        track: classes.track,
+        checked: classes.checked,
+      }}
+      {...props}
+    />
+  );
+});
+
+// Component to Read, Update, or Delete Event
 function UpdateOrDeleteEvent() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -62,19 +127,28 @@ function UpdateOrDeleteEvent() {
   // Bool variable to conditionally show underline of the input title
   const [showUnderline, setShowUnderline] = useState(true);
 
-  useEffect(() => {
-    // console.log(selectedEvent);
+  // All day toggle switch variable
+  const [stateOfAllDay, setStateOfAllDay] = useState(null);
 
-    if (!selectedEvent) {
-      return;
-    } else {
-      dispatch(setEventBackgroundColor(selectedEvent.backgroundColor));
-      // console.log(selectedEvent.backgroundColor);
+  useEffect(
+    () => {
       // console.log(selectedEvent);
-      // console.log(titleChange);
-      // setTitleChange(selectedEvent.title)
-    }
-  }, [selectedEvent, showUnderline]);
+      if (!selectedEvent) {
+        return;
+      } else {
+        dispatch(setEventBackgroundColor(selectedEvent.backgroundColor));
+        setStateOfAllDay(selectedEvent.allDay);
+        // console.log(stateOfAllDay)
+        // console.log(selectedEvent.backgroundColor);
+        // console.log("useEffect selectedEvent", selectedEvent);
+        // console.log("useEffect selectedEvent.allDay", selectedEvent.allDay);
+        // console.log(titleChange);
+        // setTitleChange(selectedEvent.title)
+      }
+    },
+    [selectedEvent, showUnderline],
+    stateOfAllDay
+  );
 
   const handleClose = () => {
     dispatch(closeUpdateOrDeleteEventModal());
@@ -91,6 +165,35 @@ function UpdateOrDeleteEvent() {
         title: newTitle,
       })
     );
+  };
+
+  // All Day Toggle
+  const handleChangeAllDay = (isAllDay) => {
+    setStateOfAllDay(isAllDay);
+    // console.log(isAllDay);
+    dispatch(
+      updateEvent({
+        ...selectedEvent,
+        allDay: isAllDay,
+      })
+    );
+  };
+
+  // Handles when the start date or time is changed
+  const handleStartDateChange = (date) => {
+    if (!selectedEvent.allDay) {
+      // setSelectedStartDate(date);
+    } else {
+      // setSelectedStartDate(date);
+    }
+  };
+  // Handles when the end date or time is changed
+  const handleEndDateChange = (date) => {
+    if (!selectedEvent.allDay) {
+      // setSelectedEndDate(date);
+    } else {
+      // setSelectedEndDate(date);
+    }
   };
 
   return (
@@ -111,32 +214,153 @@ function UpdateOrDeleteEvent() {
           <Fade in={showUpdateOrDeleteEventModal}>
             <Paper>
               <div className={classes.paper}>
-                {/* Title Text Field, looks like an h2 on the page. */}
-                <TextField
-                  id="selected-title"
-                  defaultValue={selectedEvent.title}
-                  autoComplete="off"
-                  InputProps={{
-                    classes: {
-                      input: classes.resize,
-                    },
-                    disableUnderline: showUnderline,
-                  }}
-                  className={classes.textField}
-                  onFocus={() => {
-                    // Show Border Under Text
-                    setShowUnderline(false);
-                  }}
-                  onBlur={() => {
-                    // Remove Border Under Text
-                    setShowUnderline(true);
-                  }}
-                  onChange={(event) => handleChangeTitle(event.target.value)}
-                />
-                <div id="modal-description-addEvent">
-                  this is where the update and delete will go
+                <form noValidate autoComplete="off">
+                  <Grid container justifyContent="space-around">
+                    {/* Title Text Field, looks like an h2 on the page. */}
+                    <TextField
+                      id="selected-title"
+                      defaultValue={selectedEvent.title}
+                      autoComplete="off"
+                      placeholder={selectedEvent.title === "" ? "untitled" : ""}
+                      InputProps={{
+                        classes: {
+                          input: classes.resize,
+                        },
+                        disableUnderline: showUnderline,
+                      }}
+                      className={classes.textField}
+                      onFocus={() => {
+                        // Show Border Under Text
+                        setShowUnderline(false);
+                      }}
+                      onBlur={() => {
+                        // Remove Border Under Text
+                        setShowUnderline(true);
+                      }}
+                      onChange={(event) =>
+                        handleChangeTitle(event.target.value)
+                      }
+                    />
+                    <FormControlLabel
+                      control={
+                        <IOSSwitch
+                          checked={stateOfAllDay}
+                          onChange={() => handleChangeAllDay(!stateOfAllDay)}
+                          name="checkedB"
+                        />
+                      }
+                      label="All Day Event"
+                    />
+                  </Grid>
+                </form>
+                <div>
+                  {/* Not an all day event */}
+                  {!stateOfAllDay ? (
+                    <div id="modal-description-updateEvent">
+                      {/* Start Date and Time */}
+                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <Grid container justifyContent="space-around">
+                          <KeyboardDatePicker
+                            disableToolbar
+                            variant="inline"
+                            format="MM/dd/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="Start Date"
+                            value={selectedEvent.start}
+                            onChange={handleStartDateChange}
+                            KeyboardButtonProps={{
+                              "aria-label": "change date",
+                            }}
+                          />
+                          <KeyboardTimePicker
+                            margin="normal"
+                            id="time-picker"
+                            label="Start Time"
+                            value={selectedEvent.start}
+                            onChange={handleStartDateChange}
+                            keyboardIcon={<AccessTimeIcon />}
+                            KeyboardButtonProps={{
+                              "aria-label": "change time",
+                            }}
+                          />
+                        </Grid>
+                      </MuiPickersUtilsProvider>
+
+                      {/* End Date and Time */}
+                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <Grid container justifyContent="space-around">
+                          <KeyboardDatePicker
+                            disableToolbar
+                            variant="inline"
+                            format="MM/dd/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="End Date"
+                            value={selectedEvent.end}
+                            onChange={handleEndDateChange}
+                            KeyboardButtonProps={{
+                              "aria-label": "change date",
+                            }}
+                          />
+                          <KeyboardTimePicker
+                            margin="normal"
+                            id="time-picker"
+                            label="End Time"
+                            value={selectedEvent.end}
+                            onChange={handleEndDateChange}
+                            keyboardIcon={<AccessTimeIcon />}
+                            KeyboardButtonProps={{
+                              "aria-label": "change time",
+                            }}
+                          />
+                        </Grid>
+                      </MuiPickersUtilsProvider>
+                    </div>
+                  ) : (
+                    <div>
+                      {/* All Day Event */}
+                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <Grid container justifyContent="space-around">
+                          <KeyboardDatePicker
+                            disableToolbar
+                            variant="inline"
+                            format="MM/dd/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="Start Date"
+                            value={selectedEvent.start}
+                            onChange={handleStartDateChange}
+                            KeyboardButtonProps={{
+                              "aria-label": "change date",
+                            }}
+                          />
+                          <KeyboardDatePicker
+                            disableToolbar
+                            variant="inline"
+                            format="MM/dd/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="End Date"
+                            value={
+                              selectedEvent.end
+                                ? selectedEvent.end
+                                : selectedEvent.start
+                            }
+                            onChange={handleEndDateChange}
+                            KeyboardButtonProps={{
+                              "aria-label": "change date",
+                            }}
+                          />
+                        </Grid>
+                      </MuiPickersUtilsProvider>
+                    </div>
+                  )}
                 </div>
-                <FunctionalEventColorSelector />
+
+                <div style={{ margin: "10px 0px" }}>
+                  <FunctionalEventColorSelector />
+                </div>
                 {/* Delete Button */}
                 <IconButton
                   className={classes.deleteIcon}

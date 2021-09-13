@@ -150,8 +150,6 @@ function CreateEvent({ handleCloseModal }) {
           end: moment(selectedEndDate).format(),
           allDay: false,
           backgroundColor: eventBackgroundColor,
-          // backgroundColor: `rgba(${eventBackgroundColor.color.r}, ${eventBackgroundColor.color.g}, ${eventBackgroundColor.color.b}, ${eventBackgroundColor.color.a})`,
-          // bgColorObj: eventBackgroundColor,
         })
       );
     } else {
@@ -163,8 +161,6 @@ function CreateEvent({ handleCloseModal }) {
           end: moment(selectedEndDate).format("YYYY-MM-DD"),
           allDay: true,
           backgroundColor: eventBackgroundColor,
-          // backgroundColor: `rgba(${eventBackgroundColor.color.r}, ${eventBackgroundColor.color.g}, ${eventBackgroundColor.color.b}, ${eventBackgroundColor.color.a})`,
-          // bgColorObj: eventBackgroundColor,
         })
       );
     }
@@ -292,7 +288,7 @@ function CreateEvent({ handleCloseModal }) {
           </div>
         )}
       </div>
-      <div>
+      <div style={{ margin: "10px 0px" }}>
         <FunctionalEventColorSelector />
       </div>
       <Button

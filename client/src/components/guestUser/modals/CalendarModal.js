@@ -26,7 +26,7 @@ function CalendarModal() {
     dispatch(openCreateEventModal());
   };
   const handleEventClicked = (event) => {
-    // console.log(event)
+    console.log("event Clicked", event)
     const eventObject = {
       id: event.id,
       title: event.title,

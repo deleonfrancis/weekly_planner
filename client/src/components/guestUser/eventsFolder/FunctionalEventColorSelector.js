@@ -78,7 +78,7 @@ function FunctionalEventColorSelector() {
 
   return (
     <div>
-      <h4 style={{ margin: "0px" }}>Background Color:</h4>
+      <h4 style={{ margin: "0px 0px 3px 0px" }}>Background Color:</h4>
       <div style={styles.swatch} onClick={handleClick}>
         <div style={styles.color} />
       </div>

@@ -100,7 +100,7 @@ const initialState = {
       id: "11",
       title: "Eat Out",
       start: "2021-09-20",
-      end: "2021-09-20",
+      end: "2021-09-20T23:59:59",
       allDay: true,
       backgroundColor: "rgba(74, 114, 226, 100)",
     },
